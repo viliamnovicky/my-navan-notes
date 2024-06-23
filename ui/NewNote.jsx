@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Heading from "./Heading";
 import { Form, Label, Input, FormGroup, Text } from "./Form";
-import Button from "./Button";
+import Button, { Buttons } from "./Button";
 
 const StyledNewNote = styled.div`
   background: var(--white);
@@ -13,14 +13,6 @@ const StyledNewNote = styled.div`
   transform: translateY(-50%);
   top: calc(50% + 4rem);
 `;
-
-const Buttons = styled.div`
-    display: flex;
-    margin: auto;
-    width: 100;
-    justify-content: center;
-    gap: 2rem;
-`
 
 function NewNote() {
   return (

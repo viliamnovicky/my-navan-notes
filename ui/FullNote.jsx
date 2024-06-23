@@ -16,8 +16,7 @@ const StyledFullNote = styled.div`
   padding: 4rem;
   overflow: hidden;
 
-  button {
-    margin: auto;
+  ${Buttons} {
     margin-top: 5rem;
   }
 `;

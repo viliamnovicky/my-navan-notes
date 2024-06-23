@@ -77,7 +77,7 @@ export const Buttons = styled.div`
   margin: auto;
   justify-content: center;
   align-items: center;
-  width: 30rem;
+  gap: 4rem;
 `
 
 const Button = styled.button`
@@ -88,6 +88,7 @@ const Button = styled.button`
   border-radius: 150rem;
   box-shadow: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.2);
   transition: all 0.2s;
+  text-transform: uppercase;
 
   &:hover {
     box-shadow: 0px 0.2rem 1rem rgba(0, 0, 0, 0.5);
