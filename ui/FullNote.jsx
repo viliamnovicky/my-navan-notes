@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import Heading from "./Heading";
 import Tag from "./Tag";
-import Wave from "../public/wave.png"
+import Wave from "../public/wave.png";
+import Button, { Buttons } from "./Button";
 
 const StyledFullNote = styled.div`
   background: var(--white);
@@ -14,6 +15,11 @@ const StyledFullNote = styled.div`
   top: calc(50% + 4rem);
   padding: 4rem;
   overflow: hidden;
+
+  button {
+    margin: auto;
+    margin-top: 5rem;
+  }
 `;
 
 const Header = styled.div`
@@ -55,12 +61,13 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 50%;
-    opacity: .2;
-`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  opacity: 0.2;
+  z-index: -1;
+`;
 
 function FullNote({ data }) {
   return (
@@ -86,12 +93,16 @@ function FullNote({ data }) {
         <Container>
           <Heading as="p" weight="w900">
             priority
-            <Tag color={data.color} size="medium">{data.priority} </Tag>
+            <Tag color={data.color} size="medium">
+              {data.priority}{" "}
+            </Tag>
           </Heading>
-          <Heading as="p" weight="w900"/>
+          <Heading as="p" weight="w900" />
           <Heading as="p" weight="w900">
             case num
-            <Tag color="black" size="medium">{data.case} </Tag>
+            <Tag color="black" size="medium">
+              {data.case}{" "}
+            </Tag>
           </Heading>
         </Container>
       </Details>
@@ -99,6 +110,10 @@ function FullNote({ data }) {
         {data.text}
       </Heading>
       <Image src={Wave}></Image>
+      <Buttons>
+        <Button>Edit note</Button>
+        <Button variation="danger">Delete note</Button>
+      </Buttons>
     </StyledFullNote>
   );
 }

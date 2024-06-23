@@ -72,6 +72,14 @@ const variations = {
   `,
 };
 
+export const Buttons = styled.div`
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  width: 30rem;
+`
+
 const Button = styled.button`
   border: none;
   display: flex;
