@@ -30,6 +30,26 @@ export const Label = styled.label`
   transition: all 0.2s;
 `;
 
+export const Select = styled.select`
+  padding: 1rem 1.5rem;
+  border-radius: 5rem;
+  outline: none;
+  border: none;
+  background: var(--gray-50);
+  font-size: 1.6rem;
+  width: 100%;
+
+  & option {
+    background: var(--gray-50);
+  }
+
+  &:active,
+  &:focus {
+    outline: 5px solid var(--color-primary-500);
+    background: var(--gray-50);
+  }
+`;
+
 export const Input = styled.input`
   padding: 1rem 1.5rem;
   border-radius: 3rem;

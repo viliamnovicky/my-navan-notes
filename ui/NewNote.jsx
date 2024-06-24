@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Heading from "./Heading";
-import { Form, Label, Input, FormGroup, Text } from "./Form";
+import { Form, Label, Input, FormGroup, Text, Select } from "./Form";
 import Button, { Buttons } from "./Button";
 
 const StyledNewNote = styled.div`
@@ -26,6 +26,15 @@ function NewNote() {
         create new note
       </Heading>
       <Form>
+        <FormGroup>
+          <Select id="priority" autoComplete="NO-FUCKING-WAY" placeholder="Priority">
+            <option>Low</option>
+            <option>Medium</option>
+            <option>Hight</option>
+            <option>No priority</option>
+          </Select>
+          <Label for="priority">Priority</Label>
+        </FormGroup>
         <FormGroup>
           <Input id="name" autoComplete="NO-FUCKING-WAY" placeholder="Name"></Input>
           <Label for="name">Name</Label>
