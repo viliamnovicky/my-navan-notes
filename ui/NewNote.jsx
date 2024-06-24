@@ -27,6 +27,14 @@ function NewNote() {
       </Heading>
       <Form>
         <FormGroup>
+          <Input id="name" autoComplete="NO-FUCKING-WAY" placeholder="Name"></Input>
+          <Label for="name">Name</Label>
+        </FormGroup>
+        <FormGroup>
+          <Input type="date" id="deadline" autoComplete="NO-FUCKING-WAY" placeholder="Deadline"></Input>
+          <Label for="deadline">Deadline</Label>
+        </FormGroup>
+        <FormGroup>
           <Select id="priority" autoComplete="NO-FUCKING-WAY" placeholder="Priority">
             <option>Low</option>
             <option>Medium</option>
@@ -34,10 +42,6 @@ function NewNote() {
             <option>No priority</option>
           </Select>
           <Label for="priority">Priority</Label>
-        </FormGroup>
-        <FormGroup>
-          <Input id="name" autoComplete="NO-FUCKING-WAY" placeholder="Name"></Input>
-          <Label for="name">Name</Label>
         </FormGroup>
         <FormGroup>
           <Input id="Case" autoComplete="NO-FUCKING-WAY" placeholder="Case Num"></Input>
@@ -48,7 +52,12 @@ function NewNote() {
           <Label for="Booking_id">Booking ID</Label>
         </FormGroup>
         <FormGroup>
-          <Text rows="15" id="Booking_id" autoComplete="NO-FUCKING-WAY" placeholder="Your Note"></Text>
+          <Text
+            rows="15"
+            id="Booking_id"
+            autoComplete="NO-FUCKING-WAY"
+            placeholder="Your Note"
+          ></Text>
         </FormGroup>
       </Form>
       <Buttons>
