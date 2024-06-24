@@ -12,6 +12,11 @@ const StyledNewNote = styled.div`
   right: 2rem;
   transform: translateY(-50%);
   top: calc(50% + 4rem);
+  overflow-y: auto;
+
+  ${Buttons} {
+    padding-bottom: 2rem;
+  }
 `;
 
 function NewNote() {
