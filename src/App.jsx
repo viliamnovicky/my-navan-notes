@@ -1,9 +1,21 @@
-import Navbar from "../ui/Navbar";
 import Header from "../ui/Header";
 import Logo from "../ui/Logo";
 import Notes from "../ui/Notes";
 import FullNote from "../ui/FullNote";
 import NewNote from "../ui/NewNote";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import HoursCount from "../ui/HoursCount";
+
+// Create a new Query Client with default options if needed
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      cacheTime: 1000 * 60 * 10, // 10 minutes
+      retry: 1, // Retry failed requests once
+    },
+  },
+});
 
 function App() {
   const data = {
@@ -20,15 +32,15 @@ function App() {
   };
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <Header>
         <Logo />
-        <Navbar />
+        <HoursCount />
       </Header>
       <Notes data={data} />
       <FullNote data={data} />
-      <NewNote/>
-    </>
+      <NewNote />
+    </QueryClientProvider>
   );
 }
 

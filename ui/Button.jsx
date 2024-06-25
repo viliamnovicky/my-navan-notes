@@ -3,7 +3,8 @@ import styled, { css } from "styled-components";
 const sizes = {
   small: css`
     font-size: 1.2rem;
-    padding: 0.4rem 0.8rem;
+    width: 10rem;
+    height: 3.5rem;
     text-transform: uppercase;
     font-weight: 600;
     text-align: center;
@@ -72,12 +73,21 @@ const variations = {
   `,
 };
 
+const amount = {
+  four: css`
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+  `
+}
+
 export const Buttons = styled.div`
   display: flex;
   margin: auto;
   justify-content: center;
   align-items: center;
   gap: 4rem;
+  ${(props) => amount[props.amount]}
 `
 
 const Button = styled.button`

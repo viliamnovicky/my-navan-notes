@@ -1,9 +1,9 @@
-import { Children } from "react";
 import styled from "styled-components";
 import Note from "./Note";
-import Button from "./Button";
-import arrowDown from "../public/arrow-down.svg" 
-import arrowUp from "../public/arrow-up.svg" 
+import Button, { Buttons } from "./Button";
+import arrowDown from "../public/arrow-down.svg";
+import arrowUp from "../public/arrow-up.svg";
+import Search from "./Search";
 
 const StyledNotes = styled.div`
   width: 25vw;
@@ -22,7 +22,6 @@ const StyledNotes = styled.div`
 `;
 
 const Filter = styled.div`
-  height: 10rem;
   width: 100%;
   position: sticky;
   z-index: 5;
@@ -32,6 +31,7 @@ const Filter = styled.div`
   top: 0;
   padding: 1rem;
   display: flex;
+  flex-direction: column;
   gap: 1rem;
   justify-content: center;
 
@@ -41,20 +41,32 @@ const Filter = styled.div`
   }
 `;
 
-function Notes({ data }) {
+function Notes({ storageKey, defaultList }) {
+
   return (
     <>
       <StyledNotes>
         <Filter>
-          <Button variation="light">Date <img src={arrowDown}></img></Button>
-          <Button variation="primary">Date <img src={arrowUp}></img></Button>
-          <Button variation="light">Priority <img src={arrowDown}></img></Button>
-          <Button variation="light">Priority <img src={arrowUp}></img></Button>
+          <Buttons amount="four">
+            <Button variation="light" size="small">
+              Date <img src={arrowDown}></img>
+            </Button>
+            <Button variation="primary" size="small">
+              Date <img src={arrowUp}></img>
+            </Button>
+            <Button variation="light" size="small">
+              Priority <img src={arrowDown}></img>
+            </Button>
+            <Button variation="light" size="small">
+              Priority <img src={arrowUp}></img>
+            </Button>
+          </Buttons>
+          <Search />
         </Filter>
+        {/* <Note data={data} />
         <Note data={data} />
         <Note data={data} />
-        <Note data={data} />
-        <Note data={data} />
+        <Note data={data} /> */}
       </StyledNotes>
     </>
   );
