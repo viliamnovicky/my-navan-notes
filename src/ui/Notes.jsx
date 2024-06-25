@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import Note from "./Note";
 import Button, { Buttons } from "./Button";
-import arrowDown from "../public/arrow-down.svg";
-import arrowUp from "../public/arrow-up.svg";
+import arrowDown from "../../public/arrow-down.svg";
+import arrowUp from "../../public/arrow-up.svg";
 import Search from "./Search";
 
 const StyledNotes = styled.div`

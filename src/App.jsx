@@ -1,10 +1,11 @@
-import Header from "../ui/Header";
-import Logo from "../ui/Logo";
-import Notes from "../ui/Notes";
-import FullNote from "../ui/FullNote";
-import NewNote from "../ui/NewNote";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import HoursCount from "../ui/HoursCount";
+import HoursCount from "./ui/HoursCount";
+import Header from "./ui/Header";
+import Logo from "./ui/Logo";
+import Notes from "./ui/Notes";
+import FullNote from "./ui/FullNote"
+import NewNote from "./ui/NewNote"
 
 // Create a new Query Client with default options if needed
 const queryClient = new QueryClient({

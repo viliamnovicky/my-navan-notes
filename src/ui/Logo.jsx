@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import NavanLogo from "../public/navan-logo-full.png"
+import NavanLogo from "../../public/navan-logo-full.png"
 import Button from "./Button"
 
 const StyledLogo = styled.img`

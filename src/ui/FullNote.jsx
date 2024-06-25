@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Heading from "./Heading";
 import Tag from "./Tag";
-import Wave from "../public/wave.png";
+import Wave from "../../public/wave.png";
 import Button, { Buttons } from "./Button";
 
 const StyledFullNote = styled.div`
