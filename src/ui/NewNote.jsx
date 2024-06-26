@@ -13,6 +13,7 @@ const StyledNewNote = styled.div`
   transform: translateY(-50%);
   top: calc(50% + 4rem);
   overflow-y: auto;
+  padding-left: 1.5rem;
 
   ${Buttons} {
     padding-bottom: 2rem;

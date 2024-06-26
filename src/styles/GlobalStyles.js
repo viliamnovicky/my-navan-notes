@@ -241,13 +241,13 @@ img {
 }
  
 *::-webkit-scrollbar-thumb {
-  background-color: var(--red-100);
+  background-color: transparent;
   border-radius: 50rem;
   cursor: pointer;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background-color: var(--red-200);
+  background-color: transparent;
 }
 
 *::selection {

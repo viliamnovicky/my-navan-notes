@@ -1,14 +1,16 @@
 import styled from "styled-components";
 import Button from "./Button";
-import Edit from "../public/edit.svg";
-import Add from "../public/add-white.svg";
-import Delete from "../public/delete.svg";
+import Edit from "../../public/edit.svg";
+import Add from "../../public/add-white.svg";
+import Delete from "../../public/delete.svg";
 
 const Hover = styled.div`
   z-index: 0;
   transition: all 0.2s;
   background: red;
   border-radius: 2rem;
+  border-top-right-radius: 10rem;
+  border-bottom-right-radius: 10rem;
   width: 30rem;
   height: 100%;
   position: absolute;
