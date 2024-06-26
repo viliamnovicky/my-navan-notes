@@ -35,10 +35,6 @@ const variations = {
     color: var(--purple-50);
     background: var(--purple-400);
 
-    img {
-      filter: invert(100%);
-    }
-
     &:hover {
       background: var(--purple-500);
     }

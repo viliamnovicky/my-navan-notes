@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import Button, { Buttons } from "./Button";
-import arrowDown from "../../public/arrow-down.svg";
-import arrowUp from "../../public/arrow-up.svg";
+import dateDown from "../../public/date-down.svg";
+import dateUp from "../../public/date-down.svg";
+import dateDownActive from "../../public/date-down-active.svg";
+import dateUpActive from "../../public/date-up-active.svg";
+
 import Search from "./Search";
 
 const StyledNotes = styled.div`
@@ -35,8 +38,7 @@ const Filter = styled.div`
   justify-content: center;
 
   img {
-    height: 1.6rem;
-    padding-left: 1rem;
+    height: 3rem;
   }
 `;
 
@@ -47,17 +49,17 @@ function Notes({ storageKey, defaultList }) {
       <StyledNotes>
         <Filter>
           <Buttons amount="four">
-            <Button variation="light" size="small">
-              Date <img src={arrowDown}></img>
+            <Button variation="light" size="dot">
+              <img src={dateDown}></img>
             </Button>
-            <Button variation="primary" size="small">
-              Date <img src={arrowUp}></img>
-            </Button>
-            <Button variation="light" size="small">
-              Priority <img src={arrowDown}></img>
+            <Button variation="primary" size="dot">
+              <img src={dateUpActive}></img>
             </Button>
             <Button variation="light" size="small">
-              Priority <img src={arrowUp}></img>
+              Priority <img src={""}></img>
+            </Button>
+            <Button variation="light" size="small">
+              Priority <img src={""}></img>
             </Button>
           </Buttons>
           <Search />
