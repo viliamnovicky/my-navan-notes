@@ -60,12 +60,12 @@ const StyledNote = styled.div`
   }
 `;
 
-const Title = styled.h1`
+const Name = styled.h1`
   font-size: 2rem;
   padding-left: 1rem;
 `;
 
-const Description = styled.h2`
+const Case = styled.h2`
   font-size: 1.6rem;
   font-weight: 400;
   padding: 0 0 1rem 1rem;
@@ -90,9 +90,9 @@ function Note({ data }) {
     <StyledNote>
       <Info>
         <Date>{data.date}</Date>
-        <Title>{data.case}</Title>
-        <Id>{data.booking_id}</Id>
-        <Description>{data.description}</Description>
+        <Name>{data.name}</Name>
+        <Id>{data.bookingID}</Id>
+        <Case>{data.caseNum}</Case>
       </Info>
       <Hover />
 

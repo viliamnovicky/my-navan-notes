@@ -47,7 +47,6 @@ const HoursCont = styled.div`
 
 function HoursCount() {
   const [hours, setHours] = useLocalStorageState(0, "hours");
-  //setHours("1.5")
 
   return (
     <StyledHoursCount>

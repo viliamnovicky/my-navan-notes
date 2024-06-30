@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Heading from "./Heading";
 import { Form, Label, Input, FormGroup, Text, Select } from "./Form";
 import Button, { Buttons } from "./Button";
+import { useState } from "react";
+import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
 const StyledNewNote = styled.div`
   background: var(--white);
@@ -21,6 +23,45 @@ const StyledNewNote = styled.div`
 `;
 
 function NewNote() {
+  const [name, setName] = useState("");
+  const [caseNum, setCaseNum] = useState("");
+  const [bookingID, setBookingID] = useState("");
+  const [priority, setPriority] = useState("");
+  const [deadline, setDeadline] = useState(null);
+  const [note, setNote] = useState("");
+
+  const [notes, setNotes] = useLocalStorageState([], "notes");
+  console.log(notes)
+
+  function reset() {
+    setName("")
+    setCaseNum("")
+    setBookingID("")
+    setPriority("")
+    setDeadline(null)
+    setNote("")
+  }
+
+  function createNewNote(){
+    const newNoteObject = {
+      name,
+      caseNum,
+      bookingID,
+      priority,
+      deadline,
+      note
+    }
+    console.log(newNoteObject)
+    notes.push(newNoteObject)
+    localStorage.setItem("notes", JSON.stringify(notes))
+    reset()
+  }
+
+  function handleInput(e, setState) {
+    setState(e.target.value);
+  }
+
+
   return (
     <StyledNewNote>
       <Heading weight="w400" size="large">
@@ -28,41 +69,67 @@ function NewNote() {
       </Heading>
       <Form>
         <FormGroup>
-          <Input id="name" autoComplete="NO-FUCKING-WAY" placeholder="Name"></Input>
-          <Label for="name">Name</Label>
+          <Input
+            id="note-name"
+            value={name}
+            placeholder="Name"
+            onChange={(e) => handleInput(e, setName)}
+          ></Input>
+          <Label for="note-name">Name</Label>
         </FormGroup>
         <FormGroup>
-          <Input type="date" id="deadline" autoComplete="NO-FUCKING-WAY" placeholder="Deadline"></Input>
+          <Input
+            type="date"
+            id="deadline"
+            placeholder="Deadline"
+            value={deadline}
+            onChange={(e) => handleInput(e, setDeadline)}
+          ></Input>
           <Label for="deadline">Deadline</Label>
         </FormGroup>
         <FormGroup>
-          <Select id="priority" autoComplete="NO-FUCKING-WAY" placeholder="Priority">
+          <Select
+            id="priority"
+            placeholder="Priority"
+            onChange={(e) => handleInput(e, setPriority)}
+          >
+            <option>No priority</option>
             <option>Low</option>
             <option>Medium</option>
             <option>Hight</option>
-            <option>No priority</option>
           </Select>
           <Label for="priority">Priority</Label>
         </FormGroup>
         <FormGroup>
-          <Input id="Case" autoComplete="NO-FUCKING-WAY" placeholder="Case Num"></Input>
+          <Input
+            id="Case"
+            placeholder="Case Num"
+            value={caseNum}
+            onChange={(e) => handleInput(e, setCaseNum)}
+          ></Input>
           <Label for="Case">Case Num</Label>
         </FormGroup>
         <FormGroup>
-          <Input id="Booking_id" autoComplete="NO-FUCKING-WAY" placeholder="Booking ID"></Input>
+          <Input
+            id="Booking_id"
+            placeholder="Booking ID"
+            value={bookingID}
+            onChange={(e) => handleInput(e, setBookingID)}
+          ></Input>
           <Label for="Booking_id">Booking ID</Label>
         </FormGroup>
         <FormGroup>
           <Text
             rows="15"
             id="Booking_id"
-            autoComplete="NO-FUCKING-WAY"
             placeholder="Your Note"
+            value={note}
+            onChange={(e) => handleInput(e, setNote)}
           ></Text>
         </FormGroup>
       </Form>
       <Buttons>
-        <Button variation="green">Create Note</Button>
+        <Button variation="green" onClick={()=>createNewNote()}>Create Note</Button>
         <Button variation="danger">Cancel</Button>
       </Buttons>
     </StyledNewNote>

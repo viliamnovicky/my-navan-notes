@@ -68,7 +68,7 @@ const Image = styled.img`
   z-index: -1;
 `;
 
-function FullNote({ data }) {
+function FullNote({ data, name }) {
   return (
     <StyledFullNote>
       <Heading size="large" weight="w400">

@@ -6,6 +6,8 @@ import Logo from "./ui/Logo";
 import Notes from "./ui/Notes";
 import FullNote from "./ui/FullNote"
 import NewNote from "./ui/NewNote"
+import { useState } from "react";
+import { useLocalStorageState } from "./hooks/useLocalStorageState";
 
 // Create a new Query Client with default options if needed
 const queryClient = new QueryClient({
@@ -19,6 +21,9 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+
+  const [notes, setNotes] = useLocalStorageState([], "notes");
+
   const data = {
     case: "075689541",
     description: "Fraud case hotel Citizen",
@@ -38,9 +43,9 @@ function App() {
         <Logo />
         <HoursCount />
       </Header>
-      <Notes data={data} />
-      <FullNote data={data} />
-      <NewNote />
+      <Notes data={notes} />
+      <FullNote data={data}/>
+      <NewNote/>
     </QueryClientProvider>
   );
 }

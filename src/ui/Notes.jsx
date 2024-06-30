@@ -3,6 +3,8 @@ import Search from "./Search";
 import Sort from "./Sort";
 import Note from "./Note";
 
+import EmptyNotes from "../../public/no-notes.png";
+
 const StyledNotes = styled.div`
   width: calc(25vw + 1rem);
   height: calc(100% - 12rem);
@@ -29,21 +31,54 @@ const Filter = styled.div`
   border-bottom-right-radius: 2rem;
 `;
 
+const NoRecords = styled.p`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 4rem;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--black-900);
+  text-align: center;
+  gap: 2rem;
+  font-size: 2rem;
+
+  span {
+    font-family: "Pacifico", cursive;
+  }
+`;
+
 function Notes({ data }) {
   return (
     <>
       <StyledNotes>
-        <Filter>
-          <Sort />
-          <Search />
-        </Filter>
-
-        <Note data={data} />
-        <Note data={data} />
-        <Note data={data} />
-        <Note data={data} />
-        <Note data={data} />
-        <Note data={data} />
+        {data.length === 0 ? (
+          <NoRecords>
+            <img src={EmptyNotes}></img>
+            <span>
+              Every great idea starts with a note. <br />
+              Add yours now!
+            </span>
+          </NoRecords>
+        ) : (
+          <>
+            <Filter>
+              <Sort />
+              <Search />
+            </Filter>
+            {data.map((note) => (
+              <Note key={note.name} data={note}>
+                {" "}
+              </Note>
+            ))}
+          </>
+        )}
       </StyledNotes>
     </>
   );
