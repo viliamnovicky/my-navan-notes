@@ -3,6 +3,7 @@ import Heading from "./Heading";
 import Tag from "./Tag";
 import Wave from "../../public/wave.png";
 import Button, { Buttons } from "./Button";
+import { formatDate, formatDateAndTime } from "../utils/helpers";
 
 const StyledFullNote = styled.div`
   background: var(--white);
@@ -68,51 +69,53 @@ const Image = styled.img`
   z-index: -1;
 `;
 
-function FullNote({ data, name }) {
+function FullNote({ data }) {
   return (
     <StyledFullNote>
       <Heading size="large" weight="w400">
-        {data.description}
+        {data.name ? data.name : "Your Note"}
       </Heading>
       <Details>
         <Container>
           <Heading as="p" weight="w900">
             <Tag color="gradient">created </Tag>
-            {data.date}
+            {data.date ? formatDateAndTime.format(data.date) : "??.??.????"}
           </Heading>
           <Heading as="p" weight="w900">
             <Tag color="gradient">deadline </Tag>
-            {data.date_to_do}
+            {data.deadline ? formatDate.format(new Date(data.deadline)): "no deadline"}
           </Heading>
           <Heading as="p" weight="w900">
             <Tag color="gradient">booking </Tag>
-            {data.booking_id}
+            {data.bookingID ? data.bookingID : "XXXXXX"}
           </Heading>
         </Container>
         <Container>
           <Heading as="p" weight="w900">
             priority
             <Tag color={data.color} size="medium">
-              {data.priority}{" "}
+              {data.priority ? data.priority : "none"}
             </Tag>
           </Heading>
           <Heading as="p" weight="w900" />
           <Heading as="p" weight="w900">
             case num
             <Tag color="black" size="medium">
-              {data.case}{" "}
+              {data.caseNum ? data.caseNum : "XXXXXXXX"}
             </Tag>
           </Heading>
         </Container>
       </Details>
       <Heading as="p" transform="none">
-        {data.text}
+        {data.note ? data.note : "Your note will appear here"}
       </Heading>
       <Image src={Wave}></Image>
-      <Buttons>
-        <Button>Edit note</Button>
-        <Button variation="danger">Delete note</Button>
-      </Buttons>
+      {data.note && (
+        <Buttons>
+          <Button>Edit note</Button>
+          <Button variation="danger">Delete note</Button>
+        </Buttons>
+      )}
     </StyledFullNote>
   );
 }

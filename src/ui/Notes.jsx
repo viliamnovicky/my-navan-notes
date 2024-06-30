@@ -54,8 +54,12 @@ const NoRecords = styled.p`
   }
 `;
 
-function Notes({ data }) {
-  return (
+function Notes({ data, setOpenNote }) {
+  function handleSetOpenNote(note) {
+    setOpenNote(note)
+    console.log("click")
+  }
+    return (
     <>
       <StyledNotes>
         {data.length === 0 ? (
@@ -73,9 +77,7 @@ function Notes({ data }) {
               <Search />
             </Filter>
             {data.map((note) => (
-              <Note key={note.name} data={note}>
-                {" "}
-              </Note>
+              <Note key={note.name} data={note} onClick={()=> handleSetOpenNote(note)}/>
             ))}
           </>
         )}

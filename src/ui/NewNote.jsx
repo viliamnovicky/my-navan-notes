@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Heading from "./Heading";
 import { Form, Label, Input, FormGroup, Text, Select } from "./Form";
 import Button, { Buttons } from "./Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
 const StyledNewNote = styled.div`
@@ -22,7 +22,7 @@ const StyledNewNote = styled.div`
   }
 `;
 
-function NewNote() {
+function NewNote({addNewNote}) {
   const [name, setName] = useState("");
   const [caseNum, setCaseNum] = useState("");
   const [bookingID, setBookingID] = useState("");
@@ -31,7 +31,7 @@ function NewNote() {
   const [note, setNote] = useState("");
 
   const [notes, setNotes] = useLocalStorageState([], "notes");
-  console.log(notes)
+
 
   function reset() {
     setName("")
@@ -49,11 +49,13 @@ function NewNote() {
       bookingID,
       priority,
       deadline,
-      note
+      note,
+      date: Date.now()
     }
     console.log(newNoteObject)
     notes.push(newNoteObject)
     localStorage.setItem("notes", JSON.stringify(notes))
+    addNewNote(newNoteObject);
     reset()
   }
 

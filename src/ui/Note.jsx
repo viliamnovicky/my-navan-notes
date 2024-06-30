@@ -3,6 +3,7 @@ import Button from "./Button";
 import Edit from "../../public/edit.svg";
 import Add from "../../public/add-white.svg";
 import Delete from "../../public/delete.svg";
+import { formatDate, formatDateAndTime } from "../utils/helpers";
 
 const Hover = styled.div`
   z-index: 0;
@@ -85,11 +86,12 @@ const Id = styled.p`
   padding-left: 1rem;
 `
 
-function Note({ data }) {
+function Note({ data, onClick }) {
+  
   return (
-    <StyledNote>
+    <StyledNote onClick={onClick}>
       <Info>
-        <Date>{data.date}</Date>
+        <Date>{formatDateAndTime.format(data.date)}</Date>
         <Name>{data.name}</Name>
         <Id>{data.bookingID}</Id>
         <Case>{data.caseNum}</Case>
