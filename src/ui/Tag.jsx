@@ -1,19 +1,19 @@
 import styled, { css } from "styled-components";
 
 const colors = {
-  red: css`
+  urgent: css`
     background: var(--red-400);
     color: var(--red-50);
   `,
-  green: css`
+  low: css`
     background: var(--green-400);
     color: var(--green-50);
   `,
-  orange: css`
+  medium: css`
     background: var(--orange-400);
     color: var(--orange-50);
   `,
-  black: css`
+  no_priority: css`
     background: var(--black-900);
     color: var(--gray-50);
   `,

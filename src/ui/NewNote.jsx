@@ -95,10 +95,10 @@ function NewNote({addNewNote}) {
             placeholder="Priority"
             onChange={(e) => handleInput(e, setPriority)}
           >
-            <option>No priority</option>
-            <option>Low</option>
-            <option>Medium</option>
-            <option>Hight</option>
+            <option value="no_priority">No priority</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="urgent">Urgent</option>
           </Select>
           <Label for="priority">Priority</Label>
         </FormGroup>

@@ -93,7 +93,7 @@ function FullNote({ data }) {
         <Container>
           <Heading as="p" weight="w900">
             priority
-            <Tag color={data.color} size="medium">
+            <Tag color={data.priority} size="medium">
               {data.priority ? data.priority : "none"}
             </Tag>
           </Heading>
