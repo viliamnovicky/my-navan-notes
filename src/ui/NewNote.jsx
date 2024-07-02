@@ -22,7 +22,16 @@ const StyledNewNote = styled.div`
   }
 `;
 
-function NewNote({addNewNote}) {
+const OpenForm = styled.div`
+display: flex;
+width: 100%;
+height: 100%;
+justify-content: center;
+align-items: center;
+`;
+
+function NewNote({ addNewNote }) {
+  const [isOpenForm, setIsOpenForm] = useState(false);
   const [name, setName] = useState("");
   const [caseNum, setCaseNum] = useState("");
   const [bookingID, setBookingID] = useState("");
@@ -32,17 +41,16 @@ function NewNote({addNewNote}) {
 
   const [notes, setNotes] = useLocalStorageState([], "notes");
 
-
   function reset() {
-    setName("")
-    setCaseNum("")
-    setBookingID("")
-    setPriority("")
-    setDeadline(null)
-    setNote("")
+    setName("");
+    setCaseNum("");
+    setBookingID("");
+    setPriority("");
+    setDeadline(null);
+    setNote("");
   }
 
-  function createNewNote(){
+  function createNewNote() {
     const newNoteObject = {
       name,
       caseNum,
@@ -50,19 +58,29 @@ function NewNote({addNewNote}) {
       priority,
       deadline,
       note,
-      date: Date.now()
-    }
-    console.log(newNoteObject)
-    notes.push(newNoteObject)
-    localStorage.setItem("notes", JSON.stringify(notes))
+      date: Date.now(),
+    };
+    console.log(newNoteObject);
+    notes.push(newNoteObject);
+    localStorage.setItem("notes", JSON.stringify(notes));
     addNewNote(newNoteObject);
-    reset()
+    reset();
   }
 
   function handleInput(e, setState) {
     setState(e.target.value);
   }
 
+  if (!isOpenForm)
+    return (
+      <StyledNewNote>
+        <OpenForm>
+          <Button size="large" onClick={() => setIsOpenForm(true)}>
+            create new note
+          </Button>
+        </OpenForm>
+      </StyledNewNote>
+    );
 
   return (
     <StyledNewNote>
@@ -131,8 +149,12 @@ function NewNote({addNewNote}) {
         </FormGroup>
       </Form>
       <Buttons>
-        <Button variation="green" onClick={()=>createNewNote()}>Create Note</Button>
-        <Button variation="danger">Cancel</Button>
+        <Button variation="green" onClick={() => createNewNote()}>
+          Create Note
+        </Button>
+        <Button variation="danger" onClick={() => setIsOpenForm(false)}>
+          Cancel
+        </Button>
       </Buttons>
     </StyledNewNote>
   );
