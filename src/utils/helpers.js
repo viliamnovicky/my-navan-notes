@@ -13,3 +13,7 @@ export const formatDate = new Intl.DateTimeFormat("en" , {
     minute: "2-digit",
     hour12: false
   });
+
+  export function deleteObjectByKey(list, key) {
+    return list.filter(item => !item[key]);
+  }

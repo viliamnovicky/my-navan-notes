@@ -4,6 +4,8 @@ import Sort from "./Sort";
 import Note from "./Note";
 
 import EmptyNotes from "../../public/no-notes.png";
+import { useState } from "react";
+import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
 const StyledNotes = styled.div`
   width: calc(25vw + 1rem);
@@ -18,6 +20,10 @@ const StyledNotes = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   overflow-y: auto;
+
+  .active {
+    color: var(--white);
+  }
 `;
 
 const Filter = styled.div`
@@ -54,12 +60,24 @@ const NoRecords = styled.p`
   }
 `;
 
-function Notes({ data, setOpenNote }) {
+function Notes({ data, setOpenNote, updateNotes }) {
+  const [notes, setNotes] = useLocalStorageState([], "notes");
+  const [activeNote, setActiveNote] = useState(null);
+  
   function handleSetOpenNote(note) {
     setOpenNote(note)
-    console.log("click")
+    setActiveNote(note.name);
+    console.log("click");
   }
-    return (
+
+  function handleDeleteNote(name) {
+    const updatedData = data.filter((note) => note.name !== name);
+
+    updateNotes(updatedData);
+    console.log("delete");
+  }
+
+  return (
     <>
       <StyledNotes>
         {data.length === 0 ? (
@@ -77,7 +95,13 @@ function Notes({ data, setOpenNote }) {
               <Search />
             </Filter>
             {data.map((note) => (
-              <Note key={note.name} data={note} onClick={()=> handleSetOpenNote(note)}/>
+              <Note
+                key={note.name}
+                data={note}
+                isActive={note.name === activeNote}
+                onClick={() => handleSetOpenNote(note)}
+                onDelete={() => handleDeleteNote(note.name)}
+              />
             ))}
           </>
         )}

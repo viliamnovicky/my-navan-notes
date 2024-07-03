@@ -255,6 +255,19 @@ img {
   background: var(--purple-400);
 }
 
+@keyframes active-note {
+  from {
+    bottom: -5rem;
+    left: -30rem;
+    width: 80%;
+  }
+  to {
+    bottom: 0rem;
+    left: 0rem;
+    width: 90%;
+  }
+}
+
 /*
 FOR DARK MODE
 

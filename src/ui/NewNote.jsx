@@ -5,6 +5,8 @@ import Button, { Buttons } from "./Button";
 import { useEffect, useState } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
+import NewNoteImage from "../../public/new-note.png";
+
 const StyledNewNote = styled.div`
   background: var(--white);
   width: 25vw;
@@ -23,11 +25,23 @@ const StyledNewNote = styled.div`
 `;
 
 const OpenForm = styled.div`
-display: flex;
-width: 100%;
-height: 100%;
-justify-content: center;
-align-items: center;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  flex-direction: column;
+  gap: 2rem;
+`;
+
+const Image = styled.img`
+  width: 100%;
+  height: auto;
+  /* position: absolute;;
+  bottom: 10rem;
+  left: 50%;
+  transform: translateX(-50%); */
 `;
 
 function NewNote({ addNewNote }) {
@@ -48,6 +62,7 @@ function NewNote({ addNewNote }) {
     setPriority("");
     setDeadline(null);
     setNote("");
+    setIsOpenForm(false);
   }
 
   function createNewNote() {
@@ -75,6 +90,7 @@ function NewNote({ addNewNote }) {
     return (
       <StyledNewNote>
         <OpenForm>
+          <Image src={NewNoteImage}></Image>
           <Button size="large" onClick={() => setIsOpenForm(true)}>
             create new note
           </Button>
@@ -113,7 +129,7 @@ function NewNote({ addNewNote }) {
             placeholder="Priority"
             onChange={(e) => handleInput(e, setPriority)}
           >
-            <option value="no_priority">No priority</option>
+            <option value="none">No priority</option>
             <option value="low">Low</option>
             <option value="medium">Medium</option>
             <option value="urgent">Urgent</option>

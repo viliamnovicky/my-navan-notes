@@ -29,6 +29,10 @@ function App() {
     setNotes((prevNotes) => [...prevNotes, newNote]);
   };
 
+  function updateNotes(updatedNotes) {
+    setNotes(updatedNotes)
+  }
+
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -36,7 +40,7 @@ function App() {
         <Logo />
         <HoursCount />
       </Header>
-      <Notes data={notes} setOpenNote={setOpenNote}/>
+      <Notes data={notes} setOpenNote={setOpenNote} updateNotes={updateNotes}/>
       <FullNote data={openNote}/>
       <NewNote addNewNote={addNewNote}/>
     </QueryClientProvider>

@@ -20,6 +20,16 @@ const StyledFullNote = styled.div`
   ${Buttons} {
     margin-top: 5rem;
   }
+
+  .empty {
+    position: absolute;
+    bottom: 2rem;
+    right: 50%;
+    transform: translateX(50%);
+    width: 40%;
+    opacity: 1;
+    z-index: -1;
+  }
 `;
 
 const Header = styled.div`
@@ -62,14 +72,16 @@ const Container = styled.div`
 
 const Image = styled.img`
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 50%;
+  bottom: 2rem;
+  right: 2rem;
+  width: 30%;
   opacity: 0.2;
   z-index: -1;
+  transition: all 0.2s;
 `;
 
 function FullNote({ data }) {
+  console.log(data.priority)
   return (
     <StyledFullNote>
       <Heading size="large" weight="w400">
@@ -83,7 +95,7 @@ function FullNote({ data }) {
           </Heading>
           <Heading as="p" weight="w900">
             <Tag color="gradient">deadline </Tag>
-            {data.deadline ? formatDate.format(new Date(data.deadline)): "no deadline"}
+            {data.deadline ? formatDate.format(new Date(data.deadline)) : "no deadline"}
           </Heading>
           <Heading as="p" weight="w900">
             <Tag color="gradient">booking </Tag>
@@ -93,7 +105,7 @@ function FullNote({ data }) {
         <Container>
           <Heading as="p" weight="w900">
             priority
-            <Tag color={data.priority} size="medium">
+            <Tag color={data.priority ? data.priority : "none"} size="medium">
               {data.priority ? data.priority : "none"}
             </Tag>
           </Heading>
@@ -107,9 +119,9 @@ function FullNote({ data }) {
         </Container>
       </Details>
       <Heading as="p" transform="none">
-        {data.note ? data.note : "Your note will appear here"}
+        {data.note ? data.note : "Click on some note to see all the details here"}
       </Heading>
-      <Image src={Wave}></Image>
+      <Image src={Wave} className={data.note ? "" : "empty"}></Image>
       {data.note && (
         <Buttons>
           <Button>Edit note</Button>

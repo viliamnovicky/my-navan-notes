@@ -13,7 +13,11 @@ const colors = {
     background: var(--orange-400);
     color: var(--orange-50);
   `,
-  no_priority: css`
+  none: css`
+    outline: 3px var(--black-900) dashed;
+    color: var(--black-900) !important;
+  `,
+  black: css`
     background: var(--black-900);
     color: var(--gray-50);
   `,
