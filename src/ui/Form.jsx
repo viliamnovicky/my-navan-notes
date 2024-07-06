@@ -20,6 +20,8 @@ export const Text = styled.textarea`
   background: var(--gray-50);
   font-size: 1.6rem;
   width: 100%;
+
+  
 `;
 
 export const Label = styled.label`

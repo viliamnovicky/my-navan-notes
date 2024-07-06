@@ -60,7 +60,7 @@ const Buttons = styled.div`
   display: flex;
   gap: 1rem;
   padding-right: 1rem;
-  z-index: 5;
+  z-index: 1;
   background: var(--white);
   width: 20rem;
   height: 20rem;
@@ -105,7 +105,7 @@ function Note({ data, onClick, onDelete, isActive, isOpenModal, setIsOpenModal }
         {isActive && <Hover />}
 
         <Buttons>
-          <Button variation="secondary" size="dot" onClick={() => setIsOpenModal(true)}>
+          <Button variation="secondary" size="dot" onClick={onDelete}>
             <img src={Delete}></img>
           </Button>
           {/* <Button variation="green" size="dot">

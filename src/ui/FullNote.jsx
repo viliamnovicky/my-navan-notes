@@ -30,6 +30,42 @@ const StyledFullNote = styled.div`
     opacity: 1;
     z-index: -1;
   }
+
+  .notes {
+    font-family: "Shadows Into Light Two", cursive;
+    font-size: 2rem;
+    padding: 0;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    padding-left: 5rem;
+    padding-right: 1rem;
+    text-align: left;
+    position: relative;
+    line-height: 2; /* Adjust line height to space out the lines */
+    background: linear-gradient(to bottom, #f1f1f4, 1px, transparent 1px) repeat-y; /* Line color */
+    background-size: 100% 4rem; /* Adjust to match the line height */
+    margin: 0; /* Remove default margin to better control layout */
+  
+    &::before {
+      content: "";
+      position: absolute;
+      height: 100%;
+      width: 2px;
+      background: var(--red-400);
+      left: 4rem;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      height: 1px;
+      width: calc(100% - 4rem);
+      background: var(--gray-50);
+      left: 2rem;
+      bottom: 0;
+    }
+  
+  }
 `;
 
 const Header = styled.div`
@@ -47,7 +83,7 @@ const Details = styled.div`
   background: var(--gray-50);
   border-radius: 2rem;
   margin-top: 2rem;
-  animation: opacity .2s forwards;
+  animation: opacity 0.2s forwards;
 
   ${Heading} {
     display: flex;
@@ -71,7 +107,7 @@ const Note = styled.div`
   margin-top: 2rem;
   max-height: 40%;
   overflow-x: auto;
-`
+`;
 
 const Container = styled.div`
   width: 100;
@@ -88,59 +124,62 @@ const Image = styled.img`
   transition: all 0.2s;
 `;
 
-function FullNote({ data, onClose }) {
-  
+function FullNote({ data, onClose, allNotes }) {
   return (
     <StyledFullNote>
       <Heading size="large" weight="w400" font="curs" transform="none">
-        {data.name ? data.name : "Your Note Details"}
-        {data && <Button variation="light" size="dot" use="cancel" onClick={onClose}>×</Button>}
+        {allNotes.length === 0 ? <span>Your Note Details Will Appear Here<br/>Go ahead and create your first one</span> : data.name ? data.name : <span>Your Note Details Will Appear Here<br/>"Click" On Some Note</span>}
+        {data && (
+          <Button variation="light" size="dot" use="cancel" onClick={onClose}>
+            ×
+          </Button>
+        )}
       </Heading>
-      { data &&
-      <Details>
-        <Container>
-          <Heading as="p" weight="w900">
-            <Tag color="gradient">created </Tag>
-            {data.date ? formatDateAndTime.format(data.date) : "??.??.????"}
-          </Heading>
-          <Heading as="p" weight="w900">
-            <Tag color="gradient">deadline </Tag>
-            {data.deadline ? formatDate.format(new Date(data.deadline)) : "no deadline"}
-          </Heading>
-          <Heading as="p" weight="w900">
-            <Tag color="gradient">booking </Tag>
-            {data.bookingID ? data.bookingID : "XXXXXX"}
-          </Heading>
-        </Container>
-        <Container>
-          <Heading as="p" weight="w900">
-            priority
-            <Tag color={data.priority ? data.priority : "none"} size="medium">
-              {data.priority ? data.priority : "none"}
-            </Tag>
-          </Heading>
-          <Heading as="p" weight="w900" />
-          <Heading as="p" weight="w900">
-            case num
-            <Tag color="black" size="medium">
-              {data.caseNum ? data.caseNum : "XXXXXXXX"}
-            </Tag>
-          </Heading>
-        </Container>
-      </Details>
-}
+      {data && (
+        <Details>
+          <Container>
+            <Heading as="p" weight="w900">
+              <Tag color="gradient">created </Tag>
+              {data.date ? formatDateAndTime.format(data.date) : "??.??.????"}
+            </Heading>
+            <Heading as="p" weight="w900">
+              <Tag color="gradient">deadline </Tag>
+              {data.deadline ? formatDate.format(new Date(data.deadline)) : "no deadline"}
+            </Heading>
+            <Heading as="p" weight="w900">
+              <Tag color="gradient">booking </Tag>
+              {data.bookingID ? data.bookingID : "XXXXXX"}
+            </Heading>
+          </Container>
+          <Container>
+            <Heading as="p" weight="w900">
+              priority
+              <Tag color={data.priority ? data.priority : "none"} size="medium">
+                {data.priority ? data.priority : "none"}
+              </Tag>
+            </Heading>
+            <Heading as="p" weight="w900" />
+            <Heading as="p" weight="w900">
+              case num
+              <Tag color="black" size="medium">
+                {data.caseNum ? data.caseNum : "XXXXXXXX"}
+              </Tag>
+            </Heading>
+          </Container>
+        </Details>
+      )}
       <Note>
-        <Heading as="p" transform="none">
-          {data.note ? data.note : "Click on some note to see all the details here"}
+        <Heading as="p" transform="none" className="notes" weight="w400">
+          {data.note && data.note}
         </Heading>
       </Note>
-        {data.note && (
-          <Buttons>
-            <Button>Edit note</Button>
-            <Button variation="danger">Delete note</Button>
-          </Buttons>
-        )}
-        <Image src={Wave} className={data.note ? "" : "empty"}></Image>
+      {data.note && (
+        <Buttons>
+          <Button>Edit note</Button>
+          <Button variation="danger">Delete note</Button>
+        </Buttons>
+      )}
+      <Image src={Wave} className={data.note ? "" : "empty"}></Image>
     </StyledFullNote>
   );
 }

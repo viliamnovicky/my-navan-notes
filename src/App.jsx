@@ -49,7 +49,7 @@ function App() {
         <HoursCount />
       </Header>
       <Notes data={notes} setOpenNote={setOpenNote} updateNotes={updateNotes} setIsOpenModal={setIsOpenModal} isOpenModal={isOpenModal} setActiveNote={setActiveNote} activeNote={activeNote}/>
-      <FullNote data={openNote} onClose={handleCloseNote}/>
+      <FullNote data={openNote} onClose={handleCloseNote} allNotes={notes}/>
       <NewNote addNewNote={addNewNote}/>
     </QueryClientProvider>
   );
