@@ -60,14 +60,12 @@ const NoRecords = styled.p`
   }
 `;
 
-function Notes({ data, setOpenNote, updateNotes }) {
+function Notes({ data, setOpenNote, updateNotes, isOpenModal, setIsOpenModal, setActiveNote, activeNote }) {
   const [notes, setNotes] = useLocalStorageState([], "notes");
-  const [activeNote, setActiveNote] = useState(null);
   
   function handleSetOpenNote(note) {
     setOpenNote(note)
     setActiveNote(note.name);
-    console.log("click");
   }
 
   function handleDeleteNote(name) {
@@ -98,6 +96,8 @@ function Notes({ data, setOpenNote, updateNotes }) {
               <Note
                 key={note.name}
                 data={note}
+                isOpenModal={isOpenModal}
+                setIsOpenModal={setIsOpenModal}
                 isActive={note.name === activeNote}
                 onClick={() => handleSetOpenNote(note)}
                 onDelete={() => handleDeleteNote(note.name)}

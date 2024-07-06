@@ -60,6 +60,12 @@ const aligns = {
     `
 }
 
+const fonts = {
+  curs: css`
+    font-family: "Pacifico", cursive;
+  `
+}
+
 const Heading = styled.h1`
   text-transform: uppercase;
   width: 100%;
@@ -69,6 +75,7 @@ const Heading = styled.h1`
   ${(props) => weights[props.weight]}
   ${(props) => transformations[props.transform]}
   ${(props) => aligns[props.align]}
+  ${(props) => fonts[props.font]}
 `;
 
 export default Heading;

@@ -4,12 +4,13 @@ import Edit from "../../public/edit.svg";
 import Add from "../../public/add-white.svg";
 import Delete from "../../public/delete.svg";
 import { deleteObjectByKey, formatDate, formatDateAndTime } from "../utils/helpers";
+import Modal from "./Modal";
 
 const Hover = styled.div`
   z-index: 0;
   height: 100%;
   position: absolute;
-  animation: active-note .2s forwards;
+  animation: active-note 0.2s forwards;
   background: linear-gradient(87.87deg, #fb4b37, #a733ff);
 `;
 
@@ -81,37 +82,46 @@ const Date = styled.p`
 
 const Id = styled.p`
   padding-left: 1rem;
-`
+`;
 
-function Note({ data, onClick, onDelete, isActive }) {
+const Message = styled.p`
+  color: var(--black-900);
+`;
 
+function Note({ data, onClick, onDelete, isActive, isOpenModal, setIsOpenModal }) {
   function handleDelete(data, name) {
-    deleteObjectByKey(data, name)
+    deleteObjectByKey(data, name);
   }
-  
+
   return (
-    <StyledNote onClick={onClick} className={isActive ? "active" : ""}>
+    <>
+      <StyledNote onClick={onClick} className={isActive ? "active" : ""}>
+        <Info>
+          <Date>{formatDateAndTime.format(data.date)}</Date>
+          <Name>{data.name}</Name>
+          <Id>{data.bookingID}</Id>
+          <Case>{data.caseNum}</Case>
+        </Info>
+        {isActive && <Hover />}
 
-      <Info>
-        <Date>{formatDateAndTime.format(data.date)}</Date>
-        <Name>{data.name}</Name>
-        <Id>{data.bookingID}</Id>
-        <Case>{data.caseNum}</Case>
-      </Info>
-      {isActive && <Hover />}
-
-      <Buttons>
-        <Button variation="secondary" size="dot" onClick={onDelete}>
-          <img src={Delete}></img>
-        </Button>
-        {/* <Button variation="green" size="dot">
+        <Buttons>
+          <Button variation="secondary" size="dot" onClick={() => setIsOpenModal(true)}>
+            <img src={Delete}></img>
+          </Button>
+          {/* <Button variation="green" size="dot">
           <img src={Add}></img>
         </Button> */}
-        {/* <Button variation="light" size="dot">
+          {/* <Button variation="light" size="dot">
           <img src={Edit}></img>
         </Button> */}
-      </Buttons>
-    </StyledNote>
+        </Buttons>
+      </StyledNote>
+      {/* {isOpenModal && (
+        <Modal>
+          <Message>Are you sure?</Message>
+        </Modal>
+      )} */}
+    </>
   );
 }
 

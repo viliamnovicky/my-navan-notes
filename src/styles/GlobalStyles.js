@@ -268,6 +268,35 @@ img {
   }
 }
 
+@keyframes modal-outer {
+  from {
+    background: rgba(26, 26, 26, 0);
+  }
+  to {
+    background: rgba(26, 26, 26, 0.3);
+  }
+}
+
+@keyframes modal {
+  from {
+    width: 5vw;
+    height: 5vh;
+  }
+  to {
+    width: 40vw;
+    height: 35vh;
+  }
+}
+
+@keyframes opacity {
+  from {
+    opacity: 0;
+  } 
+  to {
+    opacity: 1;
+  }
+}
+
 /*
 FOR DARK MODE
 

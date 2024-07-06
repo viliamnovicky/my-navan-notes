@@ -26,7 +26,7 @@ const StyledFullNote = styled.div`
     bottom: 2rem;
     right: 50%;
     transform: translateX(50%);
-    width: 40%;
+    height: 70%;
     opacity: 1;
     z-index: -1;
   }
@@ -46,6 +46,8 @@ const Details = styled.div`
   padding: 3rem;
   background: var(--gray-50);
   border-radius: 2rem;
+  margin-top: 2rem;
+  animation: opacity .2s forwards;
 
   ${Heading} {
     display: flex;
@@ -65,6 +67,12 @@ const Details = styled.div`
   }
 `;
 
+const Note = styled.div`
+  margin-top: 2rem;
+  max-height: 40%;
+  overflow-x: auto;
+`
+
 const Container = styled.div`
   width: 100;
   padding: 0 2rem;
@@ -74,19 +82,21 @@ const Image = styled.img`
   position: absolute;
   bottom: 2rem;
   right: 2rem;
-  width: 30%;
-  opacity: 0.2;
+  height: 30%;
+  opacity: 0.1;
   z-index: -1;
   transition: all 0.2s;
 `;
 
-function FullNote({ data }) {
-  console.log(data.priority)
+function FullNote({ data, onClose }) {
+  
   return (
     <StyledFullNote>
-      <Heading size="large" weight="w400">
-        {data.name ? data.name : "Your Note"}
+      <Heading size="large" weight="w400" font="curs" transform="none">
+        {data.name ? data.name : "Your Note Details"}
+        {data && <Button variation="light" size="dot" use="cancel" onClick={onClose}>×</Button>}
       </Heading>
+      { data &&
       <Details>
         <Container>
           <Heading as="p" weight="w900">
@@ -118,16 +128,19 @@ function FullNote({ data }) {
           </Heading>
         </Container>
       </Details>
-      <Heading as="p" transform="none">
-        {data.note ? data.note : "Click on some note to see all the details here"}
-      </Heading>
-      <Image src={Wave} className={data.note ? "" : "empty"}></Image>
-      {data.note && (
-        <Buttons>
-          <Button>Edit note</Button>
-          <Button variation="danger">Delete note</Button>
-        </Buttons>
-      )}
+}
+      <Note>
+        <Heading as="p" transform="none">
+          {data.note ? data.note : "Click on some note to see all the details here"}
+        </Heading>
+      </Note>
+        {data.note && (
+          <Buttons>
+            <Button>Edit note</Button>
+            <Button variation="danger">Delete note</Button>
+          </Buttons>
+        )}
+        <Image src={Wave} className={data.note ? "" : "empty"}></Image>
     </StyledFullNote>
   );
 }

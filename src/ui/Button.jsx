@@ -69,6 +69,17 @@ const variations = {
   `,
 };
 
+const use = {
+  cancel: css`
+    position: absolute !important;
+    right: 2rem !important;
+    top: 2rem !important;
+    font-family: "dosis", "sans-serif" !important;
+    padding-bottom: .5rem;
+    animation: opacity .2s forwards;
+  `
+}
+
 const amount = {
   four: css`
     justify-content: center;
@@ -102,6 +113,7 @@ const Button = styled.button`
 
   ${(props) => sizes[props.size]}
   ${(props) => variations[props.variation]}
+  ${(props) => use[props.use]}
 `;
 
 Button.defaultProps = {
