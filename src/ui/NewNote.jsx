@@ -45,7 +45,7 @@ const Image = styled.img`
   transform: translateX(-50%); */
 `;
 
-function NewNote({ addNewNote }) {
+function NewNote({ addNewNote, setActiveNote, setOpenNone }) {
   const [isOpenForm, setIsOpenForm] = useState(false);
   const [name, setName] = useState("");
   const [caseNum, setCaseNum] = useState("");
@@ -81,6 +81,8 @@ function NewNote({ addNewNote }) {
     localStorage.setItem("notes", JSON.stringify(notes));
     addNewNote(newNoteObject);
     toast.success('New Note Created 🎉')
+    setActiveNote(name)
+    setOpenNone(newNoteObject)
     reset();
   }
 

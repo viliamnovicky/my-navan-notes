@@ -66,34 +66,20 @@ const NoRecords = styled.p`
 
 function Notes({
   data,
+  isOpenModal,
+  setIsOpenModal,
   openNote,
   setOpenNote,
   updateNotes,
   setActiveNote,
   activeNote,
+  onDelete
 }) {
   const [notes, setNotes] = useLocalStorageState([], "notes");
-  const [isOpenModal, setIsOpenModal] = useState(false)
 
   function handleSetOpenNote(note) {
     setOpenNote(note);
     setActiveNote(note.name);
-  }
-
-  function handleDeleteNote(name) {
-    const updatedData = data.filter((note) => note.name !== name);
-
-
-    updateNotes(updatedData);
-    toast.success("Note Deleted 🎈", {
-      style: {
-        backgroundColor: "var(--red-50)",
-        color: "var(--red-400)",
-      },
-    });
-
-    setIsOpenModal(false)
-    setOpenNote("")
   }
 
   return (
@@ -131,7 +117,7 @@ function Notes({
         <Modal setIsOpenModal={setIsOpenModal}>
           <Heading weight="w300" >Are you sure?</Heading>
           <Buttons>
-            <Button onClick={() => handleDeleteNote(openNote.name)}>delete</Button>
+            <Button onClick={onDelete}>delete</Button>
             <Button variation="danger" onClick={() => setIsOpenModal(false)}>cancel</Button>
           </Buttons>
         </Modal>

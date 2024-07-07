@@ -38,6 +38,7 @@ function App() {
         color: "var(--red-400)",
       },
     });
+
     setIsOpenModal(false)
     setOpenNote("")
   }
@@ -50,14 +51,17 @@ function App() {
       </Header>
       <Notes
         data={notes}
+        isOpenModal={isOpenModal}
+        setIsOpenModal={setIsOpenModal}
         openNote={openNote}
         setOpenNote={setOpenNote}
         updateNotes={updateNotes}
         setActiveNote={setActiveNote}
         activeNote={activeNote}
+        onDelete={() => handleDeleteNote(openNote.name)}
       />
       <FullNote isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} data={openNote} onClose={handleCloseNote} allNotes={notes} onDelete={() => handleDeleteNote(openNote.name)}/>
-      <NewNote addNewNote={addNewNote} />
+      <NewNote addNewNote={addNewNote} setActiveNote={setActiveNote} setOpenNone={setOpenNote}/>
 
       <Toaster
         position="top-center"
