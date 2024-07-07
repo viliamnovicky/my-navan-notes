@@ -11,6 +11,10 @@ import nameAsc from "../../public/name-asc.svg";
 import nameAscActive from "../../public/name-asc-active.svg";
 import nameDesc from "../../public/name-desc.svg";
 import nameDescActive from "../../public/name-desc-active.svg";
+import priorityDesc from "../../public/priority-desc.png";
+import priorityDescActive from "../../public/priority-desc-active.png";
+import priorityAsc from "../../public/priority-asc.png";
+import priorityAscActive from "../../public/priority-asc-active.png";
 import { useState } from "react";
 
 const StyledSort = styled.div`
@@ -31,8 +35,8 @@ const StyledSort = styled.div`
 
 function Sort({ children }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const sortBy = searchParams.get("sort") || "";
-  const [activeFilterButton, setActiveFilterButton] = useState("")
+  const sortBy = searchParams.get("sort") || "date-asc";
+  const [activeFilterButton, setActiveFilterButton] = useState(sortBy)
 
   function handleChange(e) {
     searchParams.set("sort", e.target.value);
@@ -43,24 +47,25 @@ function Sort({ children }) {
   return (
     <StyledSort>
       <Buttons amount="four">
+      <Button variation={activeFilterButton !== "name-asc" ? "light" : "primary"} size="dot" value="name-asc" onClick={handleChange}>
+        <img src={activeFilterButton !== "name-asc" ? nameAsc : nameAscActive}></img>
+        </Button>
+        <Button variation={activeFilterButton !== "name-desc" ? "light" : "primary"} size="dot" value="name-desc" onClick={handleChange}>
+        <img src={activeFilterButton !== "name-desc" ? nameDesc : nameDescActive}></img>
+        </Button>
         <Button variation={activeFilterButton !== "date-asc" ? "light" : "primary"} size="dot" value="date-asc" onClick={handleChange}>
           <img src={activeFilterButton !== "date-asc" ? dateDown : dateDownActive}></img>
         </Button>
         <Button variation={activeFilterButton !== "date-desc" ? "light" : "primary"} size="dot" value="date-desc" onClick={handleChange}>
         <img src={activeFilterButton !== "date-desc" ? dateUp : dateUpActive}></img>
         </Button>
-        <Button variation="light" size="dot" value="priority-asc" onClick={handleChange}>
-           <img src={""}></img>
+        <Button variation={activeFilterButton !== "priority-asc" ? "light" : "primary"} size="dot" value="priority-asc" onClick={handleChange}>
+           <img src={activeFilterButton !== "priority-asc" ? priorityAsc : priorityAscActive}></img>
         </Button>
-        <Button variation="light" size="dot" value="priority-desc" onClick={handleChange}>
-           <img src={""}></img>
+        <Button variation={activeFilterButton !== "priority-desc" ? "light" : "primary"} size="dot" value="priority-desc" onClick={handleChange}>
+           <img src={activeFilterButton !== "priority-desc" ? priorityDesc : priorityDescActive}></img>
         </Button>
-        <Button variation={activeFilterButton !== "name-asc" ? "light" : "primary"} size="dot" value="name-asc" onClick={handleChange}>
-        <img src={activeFilterButton !== "name-asc" ? nameAsc : nameAscActive}></img>
-        </Button>
-        <Button variation={activeFilterButton !== "name-desc" ? "light" : "primary"} size="dot" value="name-desc" onClick={handleChange}>
-        <img src={activeFilterButton !== "name-desc" ? nameDesc : nameDescActive}></img>
-        </Button>
+        
       </Buttons>
       {children}
     </StyledSort>

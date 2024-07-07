@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import Button from "./Button";
-import Edit from "../../public/edit.svg";
-import Add from "../../public/add-white.svg";
 import Delete from "../../public/delete.svg";
-import { deleteObjectByKey, formatDate, formatDateAndTime } from "../utils/helpers";
-import Modal from "./Modal";
+import Edit from "../../public/edit.svg";
+import { formatDateAndTime } from "../utils/helpers";
 
 const Hover = styled.div`
   z-index: 0;
@@ -68,11 +66,17 @@ const Buttons = styled.div`
   position: absolute;
   right: -5rem;
   bottom: -4rem;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+
+  ${Button}:last-child {
+    margin-bottom: 5rem;
+  }
 
   ${Button} {
-    position: absolute;
-    right: 7rem;
-    bottom: 6rem;
+    margin-right: 5rem;
+    animation: opacity .2s forwards;
   }
 `;
 
@@ -89,10 +93,6 @@ const Message = styled.p`
 `;
 
 function Note({ data, onClick, onDelete, isActive, isOpenModal, setIsOpenModal }) {
-  function handleDelete(data, name) {
-    deleteObjectByKey(data, name);
-  }
-
   return (
     <>
       <StyledNote onClick={onClick} className={isActive ? "active" : ""}>
@@ -104,23 +104,20 @@ function Note({ data, onClick, onDelete, isActive, isOpenModal, setIsOpenModal }
         </Info>
         {isActive && <Hover />}
 
-        <Buttons>
-          <Button variation="secondary" size="dot" onClick={onDelete}>
-            <img src={Delete}></img>
-          </Button>
-          {/* <Button variation="green" size="dot">
+        {isActive && (
+          <Buttons>
+            <Button variation="light" size="dot">
+              <img src={Edit}></img>
+            </Button>
+            <Button variation="secondary" size="dot" onClick={onDelete}>
+              <img src={Delete}></img>
+            </Button>
+            {/* <Button variation="green" size="dot">
           <img src={Add}></img>
         </Button> */}
-          {/* <Button variation="light" size="dot">
-          <img src={Edit}></img>
-        </Button> */}
-        </Buttons>
+          </Buttons>
+        )}
       </StyledNote>
-      {/* {isOpenModal && (
-        <Modal>
-          <Message>Are you sure?</Message>
-        </Modal>
-      )} */}
     </>
   );
 }

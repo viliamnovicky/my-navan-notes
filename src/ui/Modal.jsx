@@ -13,7 +13,7 @@ const Outer = styled.div`
 `;
 
 const StyledModal = styled.div`
-    padding: 5rem;
+    padding: 4rem;
     background: white;
     position: absolute;
     left: 50%;
@@ -21,6 +21,14 @@ const StyledModal = styled.div`
     transform: translate(-50%, -50%);
     animation: modal .2s forwards;
     border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      padding-top: 0 !important;
+    }
 `
 
 function Modal({children, setIsOpenModal}) {

@@ -4,6 +4,8 @@ import Tag from "./Tag";
 import Wave from "../../public/wave.png";
 import Button, { Buttons } from "./Button";
 import { formatDate, formatDateAndTime } from "../utils/helpers";
+import { useState } from "react";
+import Modal from "./Modal";
 
 const StyledFullNote = styled.div`
   background: var(--white);
@@ -124,8 +126,10 @@ const Image = styled.img`
   transition: all 0.2s;
 `;
 
-function FullNote({ data, onClose, allNotes }) {
+function FullNote({ data, onClose, allNotes, onDelete, isOpenModal, setIsOpenModal}) {
+
   return (
+    <>
     <StyledFullNote>
       <Heading size="large" weight="w400" font="curs" transform="none">
         {allNotes.length === 0 ? <span>Your Note Details Will Appear Here<br/>Go ahead and create your first one</span> : data.name ? data.name : <span>Your Note Details Will Appear Here<br/>"Click" On Some Note</span>}
@@ -176,11 +180,19 @@ function FullNote({ data, onClose, allNotes }) {
       {data.note && (
         <Buttons>
           <Button>Edit note</Button>
-          <Button variation="danger">Delete note</Button>
+          <Button variation="danger" onClick={() => setIsOpenModal(true)}>Delete note</Button>
         </Buttons>
       )}
       <Image src={Wave} className={data.note ? "" : "empty"}></Image>
     </StyledFullNote>
+    {isOpenModal && <Modal setIsOpenModal={setIsOpenModal}>
+          <Heading weight="w300" >Are you sure?</Heading>
+          <Buttons>
+            <Button onClick={onDelete}>delete</Button>
+            <Button variation="danger" onClick={() => setIsOpenModal(false)}>cancel</Button>
+          </Buttons>
+        </Modal>}
+    </>
   );
 }
 

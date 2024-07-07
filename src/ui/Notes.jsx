@@ -6,6 +6,10 @@ import Note from "./Note";
 import EmptyNotes from "../../public/no-notes.png";
 import { useState } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
+import toast from "react-hot-toast";
+import Modal from "./Modal";
+import Button, { Buttons } from "./Button";
+import Heading from "./Heading";
 
 const StyledNotes = styled.div`
   width: calc(25vw + 1rem);
@@ -60,19 +64,36 @@ const NoRecords = styled.p`
   }
 `;
 
-function Notes({ data, setOpenNote, updateNotes, isOpenModal, setIsOpenModal, setActiveNote, activeNote }) {
+function Notes({
+  data,
+  openNote,
+  setOpenNote,
+  updateNotes,
+  setActiveNote,
+  activeNote,
+}) {
   const [notes, setNotes] = useLocalStorageState([], "notes");
-  
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
   function handleSetOpenNote(note) {
-    setOpenNote(note)
+    setOpenNote(note);
     setActiveNote(note.name);
   }
 
   function handleDeleteNote(name) {
     const updatedData = data.filter((note) => note.name !== name);
 
+
     updateNotes(updatedData);
-    console.log("delete");
+    toast.success("Note Deleted 🎈", {
+      style: {
+        backgroundColor: "var(--red-50)",
+        color: "var(--red-400)",
+      },
+    });
+
+    setIsOpenModal(false)
+    setOpenNote("")
   }
 
   return (
@@ -100,12 +121,21 @@ function Notes({ data, setOpenNote, updateNotes, isOpenModal, setIsOpenModal, se
                 setIsOpenModal={setIsOpenModal}
                 isActive={note.name === activeNote}
                 onClick={() => handleSetOpenNote(note)}
-                onDelete={() => handleDeleteNote(note.name)}
+                onDelete={() => setIsOpenModal(true)}
               />
             ))}
           </>
         )}
       </StyledNotes>
+       {isOpenModal && (
+        <Modal setIsOpenModal={setIsOpenModal}>
+          <Heading weight="w300" >Are you sure?</Heading>
+          <Buttons>
+            <Button onClick={() => handleDeleteNote(openNote.name)}>delete</Button>
+            <Button variation="danger" onClick={() => setIsOpenModal(false)}>cancel</Button>
+          </Buttons>
+        </Modal>
+      )}
     </>
   );
 }

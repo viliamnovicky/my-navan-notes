@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
 import NewNoteImage from "../../public/new-note.png";
+import toast from "react-hot-toast";
 
 const StyledNewNote = styled.div`
   background: var(--white);
@@ -79,6 +80,7 @@ function NewNote({ addNewNote }) {
     notes.push(newNoteObject);
     localStorage.setItem("notes", JSON.stringify(notes));
     addNewNote(newNoteObject);
+    toast.success('New Note Created 🎉')
     reset();
   }
 

@@ -90,7 +90,6 @@ const amount = {
 
 export const Buttons = styled.div`
   display: flex;
-  margin: auto;
   justify-content: center;
   align-items: center;
   gap: 4rem;
