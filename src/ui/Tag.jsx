@@ -14,7 +14,7 @@ const colors = {
     color: var(--orange-50);
   `,
   none: css`
-    outline: 3px var(--black-900) dashed;
+    background: var(--gray-50);
     color: var(--black-900) !important;
   `,
   black: css`
@@ -30,22 +30,25 @@ const colors = {
 const sizes = {
   small: css`
     font-size: 1rem;
-    width: 7rem;
+    width: 6rem;
     padding: 0.5rem 1rem;
   `,
   medium: css`
     font-size: 1.2rem;
-    width: 9rem;
+    width: 12rem;
     padding: 0.7rem 1.2rem;
   `,
 };
 
 const Tag = styled.span`
+  text-transform: uppercase;
   font-weight: 700;
   color: var(--white);
   border-radius: 10rem;
   ${(props) => colors[props.color]}
   ${(props) => sizes[props.size]}
+  display: flex;
+  justify-content: center;
 `;
 
 Tag.defaultProps = {

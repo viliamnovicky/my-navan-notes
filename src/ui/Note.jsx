@@ -3,6 +3,7 @@ import Button from "./Button";
 import Delete from "../../public/delete.svg";
 import Edit from "../../public/edit.svg";
 import { formatDateAndTime } from "../utils/helpers";
+import Tag from "./Tag";
 
 const Hover = styled.div`
   z-index: 0;
@@ -33,6 +34,15 @@ const StyledNote = styled.div`
   position: relative;
   overflow: hidden;
   min-height: 15rem;
+  position: relative;
+
+  ${Tag} {
+    margin-left: 2rem;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    z-index: 2;
+  }
 
   &:hover {
     background: var(--gray-50);
@@ -96,6 +106,7 @@ function Note({ data, onClick, onDelete, isActive, isOpenModal, setIsOpenModal }
   return (
     <>
       <StyledNote onClick={onClick} className={isActive ? "active" : ""}>
+          <Tag color={data.priority ? data.priority : "none"} size="small">{data.priority ? data.priority : "none"}</Tag>
         <Info>
           <Date>{formatDateAndTime.format(data.date)}</Date>
           <Name>{data.name}</Name>

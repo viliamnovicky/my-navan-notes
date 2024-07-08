@@ -11,10 +11,10 @@ import nameAsc from "../../public/name-asc.svg";
 import nameAscActive from "../../public/name-asc-active.svg";
 import nameDesc from "../../public/name-desc.svg";
 import nameDescActive from "../../public/name-desc-active.svg";
-import priorityDesc from "../../public/priority-desc.png";
-import priorityDescActive from "../../public/priority-desc-active.png";
-import priorityAsc from "../../public/priority-asc.png";
-import priorityAscActive from "../../public/priority-asc-active.png";
+import deadlineDesc from "../../public/priority-desc.png";
+import deadlineDescActive from "../../public/priority-desc-active.png";
+import deadlineAsc from "../../public/priority-asc.png";
+import deadlineAscActive from "../../public/priority-asc-active.png";
 import { useState } from "react";
 
 const StyledSort = styled.div`
@@ -59,11 +59,11 @@ function Sort({ children }) {
         <Button variation={activeFilterButton !== "date-desc" ? "light" : "primary"} size="dot" value="date-desc" onClick={handleChange}>
         <img src={activeFilterButton !== "date-desc" ? dateUp : dateUpActive}></img>
         </Button>
-        <Button variation={activeFilterButton !== "priority-asc" ? "light" : "primary"} size="dot" value="priority-asc" onClick={handleChange}>
-           <img src={activeFilterButton !== "priority-asc" ? priorityAsc : priorityAscActive}></img>
+        <Button variation={activeFilterButton !== "deadline-desc" ? "light" : "primary"} size="dot" value="deadline-desc" onClick={handleChange}>
+           <img src={activeFilterButton !== "deadline-desc" ? deadlineAsc : deadlineAscActive}></img>
         </Button>
-        <Button variation={activeFilterButton !== "priority-desc" ? "light" : "primary"} size="dot" value="priority-desc" onClick={handleChange}>
-           <img src={activeFilterButton !== "priority-desc" ? priorityDesc : priorityDescActive}></img>
+        <Button variation={activeFilterButton !== "deadline-asc" ? "light" : "primary"} size="dot" value="deadline-asc" onClick={handleChange}>
+           <img src={activeFilterButton !== "deadline-asc" ? deadlineDesc : deadlineDescActive}></img>
         </Button>
         
       </Buttons>

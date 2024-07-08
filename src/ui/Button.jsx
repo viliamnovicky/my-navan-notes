@@ -75,8 +75,14 @@ const use = {
     right: 2rem !important;
     top: 2rem !important;
     font-family: "dosis", "sans-serif" !important;
-    padding-bottom: .5rem;
     animation: opacity .2s forwards;
+    padding: 0;
+    font-size: 1.6rem !important;
+
+    img {
+      width: 100%;
+    }
+    
   `
 }
 

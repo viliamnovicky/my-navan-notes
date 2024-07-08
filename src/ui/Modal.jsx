@@ -34,7 +34,8 @@ const StyledModal = styled.div`
 function Modal({children, setIsOpenModal}) {
   return <Outer>
     <StyledModal>
-        <Button size="dot" variation="light" use="cancel" onClick={() => setIsOpenModal(false)}>×</Button>
+        <Button size="dot" variation="light" use="cancel" onClick={() => setIsOpenModal(false)}>✖
+        </Button>
         {children}
     </StyledModal>
   </Outer>;

@@ -4,8 +4,8 @@ import Tag from "./Tag";
 import Wave from "../../public/wave.png";
 import Button, { Buttons } from "./Button";
 import { formatDate, formatDateAndTime } from "../utils/helpers";
-import { useState } from "react";
 import Modal from "./Modal";
+
 
 const StyledFullNote = styled.div`
   background: var(--white);
@@ -25,10 +25,10 @@ const StyledFullNote = styled.div`
 
   .empty {
     position: absolute;
-    bottom: 2rem;
+    bottom: 10rem;
     right: 50%;
     transform: translateX(50%);
-    height: 70%;
+    width: 70%;
     opacity: 1;
     z-index: -1;
   }
@@ -120,7 +120,7 @@ const Image = styled.img`
   position: absolute;
   bottom: 2rem;
   right: 2rem;
-  height: 30%;
+  width: 30%;
   opacity: 0.1;
   z-index: -1;
   transition: all 0.2s;
@@ -135,7 +135,7 @@ function FullNote({ data, onClose, allNotes, onDelete, isOpenModal, setIsOpenMod
         {allNotes.length === 0 ? <span>Your Note Details Will Appear Here<br/>Go ahead and create your first one</span> : data.name ? data.name : <span>Your Note Details Will Appear Here<br/>"Click" On Some Note</span>}
         {data && (
           <Button variation="light" size="dot" use="cancel" onClick={onClose}>
-            ×
+            ✖
           </Button>
         )}
       </Heading>

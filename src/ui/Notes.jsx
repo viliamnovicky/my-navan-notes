@@ -6,10 +6,12 @@ import Note from "./Note";
 import EmptyNotes from "../../public/no-notes.png";
 import { useState } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
-import toast from "react-hot-toast";
 import Modal from "./Modal";
 import Button, { Buttons } from "./Button";
 import Heading from "./Heading";
+
+import { useSearchParams } from "react-router-dom";
+
 
 const StyledNotes = styled.div`
   width: calc(25vw + 1rem);
@@ -75,17 +77,30 @@ function Notes({
   activeNote,
   onDelete
 }) {
-  const [notes, setNotes] = useLocalStorageState([], "notes");
+  const [searchParams] = useSearchParams()
 
+   // Sort
+   const sortBy = searchParams.get("sort") || "date-asc"
+   const [field, direction] = sortBy.split("-")
+ 
+   const modifier = direction === "asc" ? 1 : -1
+   const sortedNotes = [...data].sort((a, b) => {
+    if (typeof a[field] === "string" && typeof b[field] === "string") {
+      return a[field].localeCompare(b[field]) * modifier;
+    } else {
+      return (a[field] - b[field]) * modifier;
+    }
+  });
   function handleSetOpenNote(note) {
     setOpenNote(note);
     setActiveNote(note.name);
+    console.log(field)
   }
 
   return (
     <>
       <StyledNotes>
-        {data.length === 0 ? (
+        {sortedNotes.length === 0 ? (
           <NoRecords>
             <img src={EmptyNotes}></img>
             <span>
@@ -99,7 +114,7 @@ function Notes({
               <Sort />
               <Search />
             </Filter>
-            {data.map((note) => (
+            {sortedNotes.map((note) => (
               <Note
                 key={note.name}
                 data={note}
