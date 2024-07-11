@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Button from "./Button";
 import Delete from "../../public/delete.svg";
 import Edit from "../../public/edit.svg";
-import { formatDateAndTime } from "../utils/helpers";
+import { formatDateAndTime, setUrgency } from "../utils/helpers";
 import Tag from "./Tag";
 
 const Hover = styled.div`
@@ -103,10 +103,12 @@ const Message = styled.p`
 `;
 
 function Note({ data, onClick, onDelete, isActive, isOpenModal, setIsOpenModal }) {
+  console.log(data.deadline)
+  console.log(setUrgency(data.deadline))
   return (
     <>
       <StyledNote onClick={onClick} className={isActive ? "active" : ""}>
-          <Tag color={data.priority ? data.priority : "none"} size="small">{data.priority ? data.priority : "none"}</Tag>
+          <Tag color={data.deadline ? setUrgency(data.deadline) : "none"} size="small">{data.deadline ? setUrgency(data.deadline) : "none"}</Tag>
         <Info>
           <Date>{formatDateAndTime.format(data.date)}</Date>
           <Name>{data.name}</Name>

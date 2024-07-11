@@ -3,7 +3,7 @@ import Heading from "./Heading";
 import Tag from "./Tag";
 import Wave from "../../public/wave.png";
 import Button, { Buttons } from "./Button";
-import { formatDate, formatDateAndTime } from "../utils/helpers";
+import { formatDate, formatDateAndTime, setUrgency } from "../utils/helpers";
 import Modal from "./Modal";
 
 
@@ -158,8 +158,8 @@ function FullNote({ data, onClose, allNotes, onDelete, isOpenModal, setIsOpenMod
           <Container>
             <Heading as="p" weight="w900">
               priority
-              <Tag color={data.priority ? data.priority : "none"} size="medium">
-                {data.priority ? data.priority : "none"}
+              <Tag color={data.deadline ? setUrgency(data.deadline) : "none"} size="medium">
+              {data.deadline ? setUrgency(data.deadline) : "none"}
               </Tag>
             </Heading>
             <Heading as="p" weight="w900" />

@@ -50,7 +50,6 @@ function NewNote({ addNewNote, setActiveNote, setOpenNone }) {
   const [name, setName] = useState("");
   const [caseNum, setCaseNum] = useState("");
   const [bookingID, setBookingID] = useState("");
-  const [priority, setPriority] = useState("");
   const [deadline, setDeadline] = useState(null);
   const [note, setNote] = useState("");
 
@@ -60,7 +59,6 @@ function NewNote({ addNewNote, setActiveNote, setOpenNone }) {
     setName("");
     setCaseNum("");
     setBookingID("");
-    setPriority("");
     setDeadline(null);
     setNote("");
     setIsOpenForm(false);
@@ -71,12 +69,11 @@ function NewNote({ addNewNote, setActiveNote, setOpenNone }) {
       name,
       caseNum,
       bookingID,
-      priority,
       deadline,
       note,
       date: Date.now(),
     };
-    console.log(newNoteObject);
+    
     notes.push(newNoteObject);
     localStorage.setItem("notes", JSON.stringify(notes));
     addNewNote(newNoteObject);
@@ -127,19 +124,7 @@ function NewNote({ addNewNote, setActiveNote, setOpenNone }) {
           ></Input>
           <Label for="deadline">Deadline</Label>
         </FormGroup>
-        <FormGroup>
-          <Select
-            id="priority"
-            placeholder="Priority"
-            onChange={(e) => handleInput(e, setPriority)}
-          >
-            <option value="none">No priority</option>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="urgent">Urgent</option>
-          </Select>
-          <Label for="priority">Priority</Label>
-        </FormGroup>
+        
         <FormGroup>
           <Input
             id="Case"

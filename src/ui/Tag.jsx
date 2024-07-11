@@ -17,7 +17,7 @@ const colors = {
     background: var(--gray-50);
     color: var(--black-900) !important;
   `,
-  black: css`
+  past: css`
     background: var(--black-900);
     color: var(--gray-50);
   `,
