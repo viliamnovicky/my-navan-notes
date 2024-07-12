@@ -18,9 +18,13 @@ const colors = {
     color: var(--black-900) !important;
   `,
   past: css`
-    background: var(--black-900);
+    background: var(--gray-900);
     color: var(--gray-50);
   `,
+  black: css`
+  background: var(--gray-700);
+  color: var(--gray-50);
+`,
   gradient: css`
     background: linear-gradient(87.87deg, #fb4b37, #a733ff);
     color: var(--purple-50);

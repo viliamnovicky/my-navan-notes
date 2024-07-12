@@ -91,6 +91,7 @@ function Notes({
       return (a[field] - b[field]) * modifier;
     }
   });
+  
   function handleSetOpenNote(note) {
     setOpenNote(note);
     setActiveNote(note.name);
