@@ -103,8 +103,7 @@ const Message = styled.p`
 `;
 
 function Note({ data, onClick, onDelete, isActive, isOpenModal, setIsOpenModal }) {
-  console.log(data.deadline)
-  console.log(setUrgency(data.deadline))
+  
   return (
     <>
       <StyledNote onClick={onClick} className={isActive ? "active" : ""}>

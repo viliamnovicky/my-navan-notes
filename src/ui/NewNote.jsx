@@ -7,6 +7,7 @@ import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
 import NewNoteImage from "../../public/new-note.png";
 import toast from "react-hot-toast";
+import { handleInput } from "../utils/helpers";
 
 const StyledNewNote = styled.div`
   background: var(--white);
@@ -81,10 +82,6 @@ function NewNote({ addNewNote, setActiveNote, setOpenNone }) {
     setActiveNote(name)
     setOpenNone(newNoteObject)
     reset();
-  }
-
-  function handleInput(e, setState) {
-    setState(e.target.value);
   }
 
   if (!isOpenForm)

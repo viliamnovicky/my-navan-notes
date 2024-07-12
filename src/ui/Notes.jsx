@@ -11,6 +11,7 @@ import Button, { Buttons } from "./Button";
 import Heading from "./Heading";
 
 import { useSearchParams } from "react-router-dom";
+import { handleInput } from "../utils/helpers";
 
 
 const StyledNotes = styled.div`
@@ -78,13 +79,20 @@ function Notes({
   onDelete
 }) {
   const [searchParams] = useSearchParams()
+  const [filter, setFilter] = useState("")
+
+   // Filter data with partial matches
+   const filteredNotes = data.filter(note => {
+    if (!filter) return true; // No filter applied
+    return note.name.toString().toLowerCase().includes(filter.toLowerCase());
+  });
 
    // Sort
    const sortBy = searchParams.get("sort") || "date-asc"
    const [field, direction] = sortBy.split("-")
  
    const modifier = direction === "asc" ? 1 : -1
-   const sortedNotes = [...data].sort((a, b) => {
+   const sortedNotes = [...filteredNotes].sort((a, b) => {
     if (typeof a[field] === "string" && typeof b[field] === "string") {
       return a[field].localeCompare(b[field]) * modifier;
     } else {
@@ -95,13 +103,12 @@ function Notes({
   function handleSetOpenNote(note) {
     setOpenNote(note);
     setActiveNote(note.name);
-    console.log(field)
   }
 
   return (
     <>
       <StyledNotes>
-        {sortedNotes.length === 0 ? (
+        {sortedNotes.length === 0 && !filter ? (
           <NoRecords>
             <img src={EmptyNotes}></img>
             <span>
@@ -113,7 +120,7 @@ function Notes({
           <>
             <Filter>
               <Sort />
-              <Search />
+              <Search value={filter} onChange={(e) => handleInput(e, setFilter)}/>
             </Filter>
             {sortedNotes.map((note) => (
               <Note

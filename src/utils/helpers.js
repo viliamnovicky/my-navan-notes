@@ -37,3 +37,7 @@ export const formatDate = new Intl.DateTimeFormat("en" , {
   
     return status;
   }
+
+  export function handleInput(e, setState) {
+    setState(e.target.value);
+  }
