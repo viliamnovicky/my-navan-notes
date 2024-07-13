@@ -92,16 +92,22 @@ function Notes({
 
   // Sort
   const sortBy = searchParams.get("sort") || "date-asc";
-  const [field, direction] = sortBy.split("-");
+const [field, direction] = sortBy.split("-");
 
-  const modifier = direction === "asc" ? 1 : -1;
-  const sortedNotes = [...filteredNotes].sort((a, b) => {
-    if (typeof a[field] === "string" && typeof b[field] === "string") {
-      return a[field].localeCompare(b[field]) * modifier;
-    } else {
-      return (a[field] - b[field]) * modifier;
-    }
-  });
+const modifier = direction === "asc" ? 1 : -1;
+const sortedNotes = [...filteredNotes].sort((a, b) => {
+  if (field === "deadline") {
+    // For deadline, handle notes without a deadline
+    const aDeadline = a[field] ? new Date(a[field]).getTime() : Infinity;
+    const bDeadline = b[field] ? new Date(b[field]).getTime() : Infinity;
+
+    return (aDeadline - bDeadline) * modifier;
+  } else if (typeof a[field] === "string" && typeof b[field] === "string") {
+    return a[field].localeCompare(b[field]) * modifier;
+  } else {
+    return (a[field] - b[field]) * modifier;
+  }
+});
 
   function handleSetOpenNote(note) {
     setOpenNote(note);
