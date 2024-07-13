@@ -13,7 +13,6 @@ import Heading from "./Heading";
 import { useSearchParams } from "react-router-dom";
 import { handleInput } from "../utils/helpers";
 
-
 const StyledNotes = styled.div`
   width: calc(25vw + 1rem);
   height: calc(100% - 12rem);
@@ -26,7 +25,7 @@ const StyledNotes = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  overflow-y: auto;
+  overflow-y: scroll;
 
   .active {
     color: var(--white);
@@ -76,30 +75,34 @@ function Notes({
   updateNotes,
   setActiveNote,
   activeNote,
-  onDelete
+  onDelete,
 }) {
-  const [searchParams] = useSearchParams()
-  const [filter, setFilter] = useState("")
+  const [searchParams] = useSearchParams();
+  const [filter, setFilter] = useState("");
 
-   // Filter data with partial matches
-   const filteredNotes = data.filter(note => {
+  // Filter data with partial matches
+  const filteredNotes = data.filter((note) => {
     if (!filter) return true; // No filter applied
-    return note.name.toString().toLowerCase().includes(filter.toLowerCase());
+    return (
+      note.name.toString().toLowerCase().includes(filter.toLowerCase()) ||
+      note.bookingID.toString().toLowerCase().includes(filter.toLowerCase()) ||
+      note.caseNum.toString().toLowerCase().includes(filter.toLowerCase())
+    );
   });
 
-   // Sort
-   const sortBy = searchParams.get("sort") || "date-asc"
-   const [field, direction] = sortBy.split("-")
- 
-   const modifier = direction === "asc" ? 1 : -1
-   const sortedNotes = [...filteredNotes].sort((a, b) => {
+  // Sort
+  const sortBy = searchParams.get("sort") || "date-asc";
+  const [field, direction] = sortBy.split("-");
+
+  const modifier = direction === "asc" ? 1 : -1;
+  const sortedNotes = [...filteredNotes].sort((a, b) => {
     if (typeof a[field] === "string" && typeof b[field] === "string") {
       return a[field].localeCompare(b[field]) * modifier;
     } else {
       return (a[field] - b[field]) * modifier;
     }
   });
-  
+
   function handleSetOpenNote(note) {
     setOpenNote(note);
     setActiveNote(note.name);
@@ -108,19 +111,27 @@ function Notes({
   return (
     <>
       <StyledNotes>
-        {sortedNotes.length === 0 && !filter ? (
-          <NoRecords>
-            <img src={EmptyNotes}></img>
-            <span>
-              Every great idea starts with a note. <br />
-              Add yours now!
-            </span>
-          </NoRecords>
+        {sortedNotes.length === 0 ? (
+          <>
+            {filter && (
+              <Filter>
+                <Sort />
+                <Search value={filter} onChange={(e) => handleInput(e, setFilter)} />
+              </Filter>
+            )}
+            <NoRecords>
+              <img src={EmptyNotes} alt="no notes"></img>
+              {!filter ? <span>
+                Every great idea starts with a note. <br />
+                Add yours now!
+              </span> : <span>You filtered too much!</span>}
+            </NoRecords>
+          </>
         ) : (
           <>
             <Filter>
               <Sort />
-              <Search value={filter} onChange={(e) => handleInput(e, setFilter)}/>
+              <Search value={filter} onChange={(e) => handleInput(e, setFilter)} />
             </Filter>
             {sortedNotes.map((note) => (
               <Note
@@ -131,17 +142,20 @@ function Notes({
                 isActive={note.name === activeNote}
                 onClick={() => handleSetOpenNote(note)}
                 onDelete={() => setIsOpenModal(true)}
+                filter={filter}
               />
             ))}
           </>
         )}
       </StyledNotes>
-       {isOpenModal && (
+      {isOpenModal && (
         <Modal setIsOpenModal={setIsOpenModal}>
-          <Heading weight="w300" >Are you sure?</Heading>
+          <Heading weight="w300">Are you sure?</Heading>
           <Buttons>
             <Button onClick={onDelete}>delete</Button>
-            <Button variation="danger" onClick={() => setIsOpenModal(false)}>cancel</Button>
+            <Button variation="danger" onClick={() => setIsOpenModal(false)}>
+              cancel
+            </Button>
           </Buttons>
         </Modal>
       )}

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Button from "./Button";
 import Delete from "../../public/delete.svg";
 import Edit from "../../public/edit.svg";
-import { formatDateAndTime, setUrgency } from "../utils/helpers";
+import { formatDateAndTime, highlightText, setUrgency } from "../utils/helpers";
 import Tag from "./Tag";
 
 const Hover = styled.div`
@@ -102,7 +102,7 @@ const Message = styled.p`
   color: var(--black-900);
 `;
 
-function Note({ data, onClick, onDelete, isActive, isOpenModal, setIsOpenModal }) {
+function Note({ data, onClick, onDelete, isActive, isOpenModal, setIsOpenModal, filter }) {
   
   return (
     <>
@@ -110,9 +110,9 @@ function Note({ data, onClick, onDelete, isActive, isOpenModal, setIsOpenModal }
           <Tag color={data.deadline ? setUrgency(data.deadline) : "none"} size="small">{data.deadline ? setUrgency(data.deadline) : "none"}</Tag>
         <Info>
           <Date>{formatDateAndTime.format(data.date)}</Date>
-          <Name>{data.name}</Name>
-          <Id>{data.bookingID}</Id>
-          <Case>{data.caseNum}</Case>
+          <Name>{highlightText(data.name, filter)}</Name>
+          <Id>{highlightText(data.bookingID, filter)}</Id>
+          <Case>{highlightText(data.caseNum, filter)}</Case>
         </Info>
         {isActive && <Hover />}
 
