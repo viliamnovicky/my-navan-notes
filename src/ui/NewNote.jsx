@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Heading from "./Heading";
+import NewCCA from "./NewCCA";
 import { Form, Label, Input, FormGroup, Text, Select } from "./Form";
 import Button, { Buttons } from "./Button";
 import { useEffect, useState } from "react";
@@ -48,11 +49,26 @@ const Image = styled.img`
 
 function NewNote({ addNewNote, setActiveNote, setOpenNone }) {
   const [isOpenForm, setIsOpenForm] = useState(false);
+  const [isOpenCCAForm, setIsOpenCCAForm] = useState(false);
   const [name, setName] = useState("");
   const [caseNum, setCaseNum] = useState("");
   const [bookingID, setBookingID] = useState("");
   const [deadline, setDeadline] = useState(null);
   const [note, setNote] = useState("");
+
+  const [guestName, setGuestName] = useState('');
+  const [hotelName, setHotelName] = useState('');
+  const [arrival, setArrival] = useState('');
+  const [departure, setDeparture] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [companyAddress, setCompanyAddress] = useState('');
+  const [confirmation, setConfirmation] = useState('');
+  const [expNumber, setExpNumber] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+  const [cvc, setCvc] = useState('');
+  const [cardName, setCardName] = useState('');
+  const [taxId, setTaxId] = useState('');
+
 
   const [notes, setNotes] = useLocalStorageState([], "notes");
 
@@ -84,17 +100,46 @@ function NewNote({ addNewNote, setActiveNote, setOpenNone }) {
     reset();
   }
 
-  if (!isOpenForm)
+  if (!isOpenForm && !isOpenCCAForm)
     return (
       <StyledNewNote>
         <OpenForm>
           <Image src={NewNoteImage}></Image>
+          <Buttons>
           <Button size="large" onClick={() => setIsOpenForm(true)}>
             create new note
           </Button>
+          <Button size="large" onClick={() => setIsOpenCCAForm(true)}>
+            create CCA form
+          </Button>
+          </Buttons>
+          
         </OpenForm>
       </StyledNewNote>
     );
+
+    if (isOpenCCAForm) {
+      return (
+        <StyledNewNote>
+          <Heading weight="w400" size="large">
+        create new cca form
+      </Heading>
+          <NewCCA expNumber={expNumber} setExpNumber={setExpNumber} 
+          cardNumber={cardNumber} setCardNumber={setCardNumber}  
+          cvc={cvc}  setCvc={setCvc}  
+          cardName={cardName}  setCardName={setCardName}  
+          companyAddress={companyAddress}  setCompanyAddress={setCompanyAddress}  
+          confirmation={confirmation}  setConfirmation={setConfirmation}  
+          guestName={guestName} setGuestName={setGuestName}  
+          hotelName={hotelName} setHotelName={setHotelName}  
+          arrival={arrival}  setArrival={setArrival} 
+          departure={departure} setDeparture={setDeparture} 
+          companyName={companyName} setCompanyName={setCompanyName} 
+          taxId={taxId} setTaxId={setTaxId}
+          setIsOpenCCAForm={setIsOpenCCAForm }/>
+        </StyledNewNote>
+      )
+    }
 
   return (
     <StyledNewNote>
