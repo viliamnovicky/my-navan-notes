@@ -1,6 +1,7 @@
 import React from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import Button from "../ui/Button"
 
 const GeneratePdf = ({ data }) => {
 
@@ -73,7 +74,7 @@ const GeneratePdf = ({ data }) => {
   
     return (
       <div>
-        <button onClick={handleGeneratePdf}>Generate PDF</button>
+        <Button onClick={handleGeneratePdf}>Generate PDF</Button>
       </div>
     );
   };
