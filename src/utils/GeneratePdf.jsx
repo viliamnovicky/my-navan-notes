@@ -5,6 +5,13 @@ import Button from "../ui/Button"
 
 const GeneratePdf = ({ data }) => {
 
+  // Calculate the difference in milliseconds
+  const differenceInMillis = new Date(data.departure) - new Date(data.arrival);
+
+  // Convert milliseconds to days
+  const millisPerDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
+  const numberOfNights = Math.round(differenceInMillis / millisPerDay);
+
     const handleGeneratePdf = () => {
         const doc = new jsPDF();
         const pageWidth = doc.internal.pageSize.getWidth(); // Get page width
@@ -30,6 +37,8 @@ const GeneratePdf = ({ data }) => {
         doc.text(marginLeft, yPosition, `Check-In: ${data.arrival}`);
         yPosition += 10;
         doc.text(marginLeft, yPosition, `Check-Out: ${data.departure}`);
+        yPosition += 10;
+        doc.text(marginLeft, yPosition, `Number of nights: ${numberOfNights}`);
         yPosition += 10;
         doc.text(marginLeft, yPosition, `Company Name: ${data.companyName}`);
         yPosition += 10;
