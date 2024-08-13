@@ -16,8 +16,8 @@ const sizes = {
     font-weight: 500;
   `,
   large: css`
-    font-size: 1.6rem;
-    padding: 1.2rem 2.4rem;
+    font-size: 1.4rem;
+    padding: 1.2rem 2.8rem;
     font-weight: 500;
   `,
   dot: css`
@@ -98,7 +98,7 @@ export const Buttons = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4rem;
+  gap: 2rem;
   ${(props) => amount[props.amount]}
 `
 
