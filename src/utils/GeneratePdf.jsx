@@ -69,7 +69,7 @@ const GeneratePdf = ({ data }) => {
         yPosition += 10;
       
         // Save the PDF
-        doc.save('hotel-booking.pdf');
+        doc.save(`CCA-${data.confirmation}-${data.guestName}.pdf`);
       };
   
     return (
