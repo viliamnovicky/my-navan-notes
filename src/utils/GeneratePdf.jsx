@@ -1,6 +1,4 @@
-import React from "react";
 import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 import Button from "../ui/Button";
 import PdfLogo from "../../public/pdf.jpg";
 
@@ -51,7 +49,7 @@ const GeneratePdf = ({ data }) => {
     doc.text(marginLeft, yPosition, `Charges allowed: ${data.charges.map(charge => ` ${charge}`)}`);
     yPosition += 10;
     doc.text(marginLeft, yPosition, `Company Phone Number: +18885058747`);
-    yPosition += 30;
+    yPosition += 25;
     doc.text(marginLeft, yPosition, `Name on Card: ${data.cardName}`);
     yPosition += 10;
     doc.text(marginLeft, yPosition, `Card Number: ${data.cardNumber}`);
@@ -67,7 +65,7 @@ const GeneratePdf = ({ data }) => {
     const rightAlignedText = `Date of Authorization: ${data.month}/${data.day}/${data.date}`;
     const rightAlignedX = getRightAlignedPosition(rightAlignedText);
     doc.text(rightAlignedX, yPosition, rightAlignedText);
-    yPosition += 40;
+    yPosition += 30;
     doc.text(marginLeft, yPosition, `Payment Notes: `).setFontSize(10);
     yPosition += 10;
     doc
