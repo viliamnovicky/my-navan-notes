@@ -1,8 +1,12 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Form = styled.form`
   background: transparent;
   padding: 2rem;
+
+  .inactive {
+    cursor: not-allowed;
+  }
 `;
 
 export const FormGroup = styled.div`
@@ -20,17 +24,15 @@ export const Text = styled.textarea`
   background: var(--gray-50);
   font-size: 1.6rem;
   width: 100%;
-
-  
 `;
 
 export const Label = styled.label`
-  padding-bottom: 0.5rem;
   padding-left: 1.5rem;
   font-size: 1.6rem;
   font-weight: 500;
   position: relative;
   transition: all 0.2s;
+  top: .5rem;
 `;
 
 export const Select = styled.select`
@@ -63,6 +65,17 @@ export const Input = styled.input`
   font-size: 1.6rem;
   width: 100%;
   width: 100%;
+
+  &:disabled {
+    background: var(--gray-50);
+    border: none;
+    outline: none;
+
+    &:focus, &:active {
+      outline: none;
+      background: var(--gray-50);
+    }
+  }
 
   &::placeholder {
     transition: opacity, 0.5s;

@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 export const formatDate = new Intl.DateTimeFormat("en", {
   day: "2-digit",
   month: "2-digit",
@@ -40,6 +42,30 @@ export function setUrgency(date) {
 
 export function handleInput(e, setState) {
   setState(e.target.value);
+}
+
+export function copyText(element, value) {
+  // Check if the element is valid and has text content
+  if (element && element.textContent) {
+    // Create a temporary textarea element to hold the text to be copied
+    const tempTextArea = document.createElement('textarea');
+    
+    // Set the textarea's value to the element's text content
+    tempTextArea.value = element.textContent;
+    
+    // Append the textarea to the document body (it needs to be in the DOM to copy)
+    document.body.appendChild(tempTextArea);
+    
+    // Select the text inside the textarea
+    tempTextArea.select();
+    
+    // Copy the selected text to the clipboard
+    document.execCommand('copy');
+    
+    // Remove the textarea from the document
+    document.body.removeChild(tempTextArea);
+    toast.success(`${value} copied to clippboard`)
+  }
 }
 
 // Helper function to wrap matched text

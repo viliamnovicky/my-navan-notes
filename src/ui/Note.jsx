@@ -129,7 +129,7 @@ function Note({
         <Info>
           <Date>{formatDateAndTime.format(data.date)}</Date>
           <Name>{highlightText(data.name, filter)}</Name>
-          <Id>{highlightText(data.bookingID, filter)}</Id>
+          <Id>{highlightText(data.bookingID.toUpperCase(), filter)}</Id>
           <Case>{highlightText(data.caseNum, filter)}</Case>
         </Info>
         {isActive && <Hover />}

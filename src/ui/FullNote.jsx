@@ -3,7 +3,7 @@ import Heading from "./Heading";
 import Tag from "./Tag";
 import Wave from "../../public/wave.png";
 import Button, { Buttons } from "./Button";
-import { formatDate, formatDateAndTime, setUrgency } from "../utils/helpers";
+import { copyText, formatDate, formatDateAndTime, setUrgency } from "../utils/helpers";
 import Modal from "./Modal";
 
 
@@ -152,7 +152,7 @@ function FullNote({ data, onClose, allNotes, onDelete, isOpenModal, setIsOpenMod
             </Heading>
             <Heading as="p" weight="w900">
               <Tag color="gradient">booking </Tag>
-              {data.bookingID ? data.bookingID : "XXXXXX"}
+              {data.bookingID ? <Tag click="true" color="no_bg" size="large" onClick={(e) => copyText(e.target, "Bookind ID")}>{data.bookingID}</Tag> : "XXXXXX"}
             </Heading>
           </Container>
           <Container>
@@ -165,7 +165,7 @@ function FullNote({ data, onClose, allNotes, onDelete, isOpenModal, setIsOpenMod
             <Heading as="p" weight="w900" />
             <Heading as="p" weight="w900">
               case num
-              <Tag color="black" size="medium">
+              <Tag color="black" click="true" size="medium" onClick={(e) => copyText(e.target, "Case Number")}>
                 {data.caseNum ? data.caseNum : "XXXXXXXX"}
               </Tag>
             </Heading>

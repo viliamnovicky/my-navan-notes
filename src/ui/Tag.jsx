@@ -17,6 +17,10 @@ const colors = {
     background: var(--gray-50);
     color: var(--black-900) !important;
   `,
+  no_bg: css`
+    background: transparent;
+    color: var(--black-900) !important;
+  `,
   past: css`
     background: var(--gray-900);
     color: var(--gray-50);
@@ -42,7 +46,16 @@ const sizes = {
     width: 12rem;
     padding: 0.7rem 1.2rem;
   `,
+  large: css`
+    font-size: 1.6rem;
+  `,
 };
+
+const click = {
+  true: css`
+    cursor: pointer;
+  `
+}
 
 const Tag = styled.span`
   text-transform: uppercase;
@@ -51,6 +64,7 @@ const Tag = styled.span`
   border-radius: 10rem;
   ${(props) => colors[props.color]}
   ${(props) => sizes[props.size]}
+  ${(props) => click[props.click]}
   display: flex;
   justify-content: center;
 `;

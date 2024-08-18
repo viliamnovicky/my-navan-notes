@@ -67,7 +67,7 @@ function NewNote({
   note,
   setNote,
   updateNote,
-  oldName
+  oldName,
 }) {
   const [isOpenCCAForm, setIsOpenCCAForm] = useState(false);
 
@@ -98,7 +98,7 @@ function NewNote({
 
   const newNoteObject = {
     name,
-    caseNum,
+    caseNum: caseNum.toUpperCase(),
     bookingID,
     deadline,
     note,
@@ -106,18 +106,17 @@ function NewNote({
   };
 
   function handleUpdateNote() {
-    updateNote(oldName, newNoteObject)
+    updateNote(oldName, newNoteObject);
     localStorage.setItem("notes", JSON.stringify(notes));
     toast.success("New Note Updated 🎉");
-    setIsOpenForm(false)
-    setUpdate(false)
+    setIsOpenForm(false);
+    setUpdate(false);
     setActiveNote(name);
     setOpenNote(newNoteObject);
-    reset()
+    reset();
   }
 
   function createNewNote() {
-
     notes.push(newNoteObject);
     localStorage.setItem("notes", JSON.stringify(notes));
     addNewNote(newNoteObject);
@@ -193,6 +192,8 @@ function NewNote({
             value={name}
             placeholder="Name"
             onChange={(e) => handleInput(e, setName)}
+            autoComplete="off" // Disable autocomplete
+            name="dummy" // Use a non-standard name
           ></Input>
           <Label for="note-name">Name</Label>
         </FormGroup>
@@ -203,6 +204,8 @@ function NewNote({
             placeholder="Deadline"
             value={deadline}
             onChange={(e) => handleInput(e, setDeadline)}
+            autoComplete="off" // Disable autocomplete
+            name="dummy" // Use a non-standard name
           ></Input>
           <Label for="deadline">Deadline</Label>
         </FormGroup>
@@ -213,6 +216,8 @@ function NewNote({
             placeholder="Case Num"
             value={caseNum}
             onChange={(e) => handleInput(e, setCaseNum)}
+            autoComplete="off" // Disable autocomplete
+            name="dummy" // Use a non-standard name
           ></Input>
           <Label for="Case">Case Num</Label>
         </FormGroup>
@@ -220,8 +225,10 @@ function NewNote({
           <Input
             id="Booking_id"
             placeholder="Booking ID"
-            value={bookingID}
+            value={bookingID.toUpperCase()}
             onChange={(e) => handleInput(e, setBookingID)}
+            autoComplete="off" // Disable autocomplete
+            name="dummy" // Use a non-standard name
           ></Input>
           <Label for="Booking_id">Booking ID</Label>
         </FormGroup>
@@ -232,6 +239,8 @@ function NewNote({
             placeholder="Your Note"
             value={note}
             onChange={(e) => handleInput(e, setNote)}
+            autoComplete="off" // Disable autocomplete
+            name="dummy" // Use a non-standard name
           ></Text>
         </FormGroup>
       </Form>
