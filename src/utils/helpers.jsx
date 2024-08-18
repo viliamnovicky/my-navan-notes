@@ -44,6 +44,20 @@ export function handleInput(e, setState) {
   setState(e.target.value);
 }
 
+// Handle checkbox change
+export function handleCheckboxChange(e, setState, state) {
+  const { value, checked } = e.target;
+
+  if (checked) {
+    // Add the value to the selectedItems list if checked
+    setState((prev) => [...prev, value]);
+  } else {
+    // Remove the value from the selectedItems list if unchecked
+    setState((prev) => prev.filter((item) => item !== value));
+  }
+  console.log(state)
+}
+
 export function copyText(element, value) {
   // Check if the element is valid and has text content
   if (element && element.textContent) {

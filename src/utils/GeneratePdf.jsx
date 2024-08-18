@@ -48,6 +48,8 @@ const GeneratePdf = ({ data }) => {
     yPosition += 10;
     doc.text(marginLeft, yPosition, `Company Tax ID: ${data.taxId}`);
     yPosition += 10;
+    doc.text(marginLeft, yPosition, `Charges allowed: ${data.charges.map(charge => ` ${charge}`)}`);
+    yPosition += 10;
     doc.text(marginLeft, yPosition, `Company Phone Number: +18885058747`);
     yPosition += 30;
     doc.text(marginLeft, yPosition, `Name on Card: ${data.cardName}`);

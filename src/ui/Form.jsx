@@ -12,7 +12,58 @@ export const Form = styled.form`
 export const FormGroup = styled.div`
   width: 100%;
   padding-bottom: 2rem;
-  animation: opacity .2s forwards;
+  animation: opacity 0.2s forwards;
+`;
+
+export const CheckboxGroup = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rem 0 4rem 0;
+  margin: auto;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+
+    label {
+      top: 0;
+      font-weight: 400;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      padding-left: 2rem;
+      font-size: 1.4rem;
+
+      &:before {
+        width: 1.1rem;
+        height: 1.1rem;
+        background: var(--white);
+        border: 2px solid var(--white);
+        outline: 2px solid var(--purple-400);
+        border-radius: 50%;
+        content: "";
+        position: absolute;
+        left: 0rem;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+`;
+
+export const Checkbox = styled.input`
+  opacity: 0;
+  visibility: hidden;
+
+  &:checked + label:before {
+    background: var(--purple-400);
+  }
 `;
 
 export const Text = styled.textarea`
@@ -32,7 +83,7 @@ export const Label = styled.label`
   font-weight: 500;
   position: relative;
   transition: all 0.2s;
-  top: .5rem;
+  top: 0.5rem;
 `;
 
 export const Select = styled.select`
@@ -71,7 +122,8 @@ export const Input = styled.input`
     border: none;
     outline: none;
 
-    &:focus, &:active {
+    &:focus,
+    &:active {
       outline: none;
       background: var(--gray-50);
     }

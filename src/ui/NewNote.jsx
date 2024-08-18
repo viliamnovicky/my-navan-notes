@@ -83,6 +83,7 @@ function NewNote({
   const [cvc, setCvc] = useState("");
   const [cardName, setCardName] = useState("");
   const [taxId, setTaxId] = useState("");
+  const [charges, setCharges] = useState([])
 
   const [notes, setNotes] = useLocalStorageState([], "notes");
 
@@ -175,6 +176,8 @@ function NewNote({
           taxId={taxId}
           setTaxId={setTaxId}
           setIsOpenCCAForm={setIsOpenCCAForm}
+          charges={charges}
+          setCharges={setCharges}
         />
       </StyledNewNote>
     );

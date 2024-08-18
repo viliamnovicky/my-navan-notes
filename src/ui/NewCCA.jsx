@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Form, FormGroup, Label, Input } from "./Form";
-import { handleInput } from "../utils/helpers";
+import { Form, FormGroup, Label, Input, CheckboxGroup, Checkbox } from "./Form";
+import { handleCheckboxChange, handleInput } from "../utils/helpers";
 import Button, { Buttons } from "./Button";
 import GeneratePdf from "../utils/GeneratePdf";
 
@@ -30,6 +30,8 @@ function NewCCA({
   companyName,
   setCompanyName,
   setIsOpenCCAForm,
+  charges,
+  setCharges,
 }) {
   const data = {
     expNumber,
@@ -44,6 +46,7 @@ function NewCCA({
     departure,
     companyName,
     taxId,
+    charges,
     date: new Date().getFullYear(),
     month: new Date().getMonth() + 1,
     day: new Date().getDate(),
@@ -141,6 +144,32 @@ function NewCCA({
         ></Input>
         <Label for="tax-id">Company Tax ID</Label>
       </FormGroup>
+      <CheckboxGroup>
+        <div>
+          <Checkbox type="checkbox" id="room" value="Room"onChange={(e) => handleCheckboxChange(e, setCharges, charges)}></Checkbox>
+          <Label for="room">Room</Label>
+        </div>
+        <div>
+          <Checkbox type="checkbox" id="taxes_and_fees" value="Taxes and Fees"onChange={(e) => handleCheckboxChange(e, setCharges, charges)}></Checkbox>
+          <Label for="taxes_and_fees">Taxes & Fees</Label>
+        </div>
+        <div>
+          <Checkbox type="checkbox" id="breakfast" value="Breakfast"onChange={(e) => handleCheckboxChange(e, setCharges, charges)}></Checkbox>
+          <Label for="breakfast">Breakfast</Label>
+        </div>
+        <div>
+          <Checkbox type="checkbox" id="parking" value="Parking"onChange={(e) => handleCheckboxChange(e, setCharges, charges)}></Checkbox>
+          <Label for="parking">Parking</Label>
+        </div>
+        <div>
+          <Checkbox type="checkbox" id="incidentals" value="Incidentals"onChange={(e) => handleCheckboxChange(e, setCharges, charges)}></Checkbox>
+          <Label for="incidentals">Incidentals</Label>
+        </div>
+        <div>
+          <Checkbox type="checkbox" id="all" value="All Charges"onChange={(e) => handleCheckboxChange(e, setCharges, charges)}></Checkbox>
+          <Label for="all">All Charges</Label>
+        </div>
+      </CheckboxGroup>
       <FormGroup>
         <Input
           id="name-on-card"
