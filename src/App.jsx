@@ -14,11 +14,30 @@ function App() {
   const [notes, setNotes] = useLocalStorageState([], "notes");
   const [openNote, setOpenNote] = useState("");
   const [activeNote, setActiveNote] = useState(null);
-  const [isOpenModal, setIsOpenModal] = useState(false)
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const [name, setName] = useState("");
+  const [oldName, setOldName] = useState("")
+  const [caseNum, setCaseNum] = useState("");
+  const [bookingID, setBookingID] = useState("");
+  const [deadline, setDeadline] = useState(null);
+  const [note, setNote] = useState("");
+
+  const [isOpenForm, setIsOpenForm] = useState(false);
+  const [update, setUpdate] = useState(false)
 
   const addNewNote = (newNote) => {
     setNotes((prevNotes) => [...prevNotes, newNote]);
   };
+
+  function updateNote(oldName, data) {
+    setNotes(prevNotes => 
+      prevNotes.map(note => 
+        note.name === oldName ? { ...note, ...data } : note
+      )
+    );
+    console.log(data)
+  }
 
   function updateNotes(updatedNotes) {
     setNotes(updatedNotes);
@@ -27,6 +46,17 @@ function App() {
   function handleCloseNote() {
     setOpenNote("");
     setActiveNote(null);
+  }
+
+  function handleOpenNoteForUpdate(openNote) {
+    setName(openNote.name)
+    setOldName(openNote.name)
+    setDeadline(openNote.deadline)
+    setCaseNum(openNote.caseNum)
+    setBookingID(openNote.bookingID)
+    setNote(openNote.note)
+    setIsOpenForm(true)
+    setUpdate(true)
   }
 
   function handleDeleteNote(name) {
@@ -39,8 +69,8 @@ function App() {
       },
     });
 
-    setIsOpenModal(false)
-    setOpenNote("")
+    setIsOpenModal(false);
+    setOpenNote("");
   }
 
   return (
@@ -59,9 +89,49 @@ function App() {
         setActiveNote={setActiveNote}
         activeNote={activeNote}
         onDelete={() => handleDeleteNote(openNote.name)}
+        onEdit={() => handleOpenNoteForUpdate(openNote)}
+        setIsOpenForm={setIsOpenForm}
+        setUpdate={setUpdate}
+        setName={setName}
+        setDeadline={setDeadline}
+        setCaseNum={setCaseNum}
+        setBookingID={setBookingID}
+        setNote={setNote}
       />
-      <FullNote isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} data={openNote} onClose={handleCloseNote} allNotes={notes} onDelete={() => handleDeleteNote(openNote.name)}/>
-      <NewNote addNewNote={addNewNote} setActiveNote={setActiveNote} setOpenNone={setOpenNote}/>
+      <FullNote
+        isOpenModal={isOpenModal}
+        setIsOpenModal={setIsOpenModal}
+        data={openNote}
+        onClose={handleCloseNote}
+        allNotes={notes}
+        onDelete={() => handleDeleteNote(openNote.name)}
+        setUpdate={setUpdate}
+        onEdit={() => handleOpenNoteForUpdate(openNote)}
+
+      />
+      <NewNote
+        addNewNote={addNewNote}
+        setActiveNote={setActiveNote}
+        setOpenNote={setOpenNote}
+        isOpenForm={isOpenForm}
+        setIsOpenForm={setIsOpenForm}
+        update={update}
+        setUpdate={setUpdate}
+        name={name}
+        setName={setName}
+        deadline={deadline}
+        setDeadline={setDeadline}
+        caseNum={caseNum}
+        setCaseNum={setCaseNum}
+        bookingID={bookingID}
+        setBookingID={setBookingID}
+        note={note}
+        setNote={setNote}
+        notes={notes}
+        setNotes={setNotes}
+        updateNote={updateNote}
+        oldName={oldName}
+      />
 
       <Toaster
         position="top-center"

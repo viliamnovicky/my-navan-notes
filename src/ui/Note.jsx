@@ -86,7 +86,7 @@ const Buttons = styled.div`
 
   ${Button} {
     margin-right: 5rem;
-    animation: opacity .2s forwards;
+    animation: opacity 0.2s forwards;
   }
 `;
 
@@ -102,12 +102,30 @@ const Message = styled.p`
   color: var(--black-900);
 `;
 
-function Note({ data, onClick, onDelete, isActive, isOpenModal, setIsOpenModal, filter }) {
+function Note({
+  data,
+  onClick,
+  onDelete,
+  isActive,
+  isOpenModal,
+  setIsOpenModal,
+  filter,
+  onEdit,
+  setIsOpenForm,
+  setUpdate,
+  setName,
+  setDeadline,
+  setCaseNum,
+  setBookingID,
+  setNote,
+}) {
   
   return (
     <>
       <StyledNote onClick={onClick} className={isActive ? "active" : ""}>
-          <Tag color={data.deadline ? setUrgency(data.deadline) : "none"} size="small">{data.deadline ? setUrgency(data.deadline) : "none"}</Tag>
+        <Tag color={data.deadline ? setUrgency(data.deadline) : "none"} size="small">
+          {data.deadline ? setUrgency(data.deadline) : "none"}
+        </Tag>
         <Info>
           <Date>{formatDateAndTime.format(data.date)}</Date>
           <Name>{highlightText(data.name, filter)}</Name>
@@ -118,10 +136,16 @@ function Note({ data, onClick, onDelete, isActive, isOpenModal, setIsOpenModal, 
 
         {isActive && (
           <Buttons>
-            <Button variation="light" size="dot">
+            <Button variation="light" size="dot" onClick={(e) => {
+          e.stopPropagation(); // Prevent the event from bubbling up to the StyledNote onClick
+          onEdit();
+        }}>
               <img src={Edit}></img>
             </Button>
-            <Button variation="secondary" size="dot" onClick={onDelete}>
+            <Button variation="secondary" size="dot" onClick={(e) => {
+          e.stopPropagation(); // Prevent the event from bubbling up to the StyledNote onClick
+          onDelete();
+        }}>
               <img src={Delete}></img>
             </Button>
             {/* <Button variation="green" size="dot">

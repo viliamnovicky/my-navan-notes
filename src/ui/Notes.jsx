@@ -76,6 +76,14 @@ function Notes({
   setActiveNote,
   activeNote,
   onDelete,
+  onEdit,
+  setIsOpenForm,
+  setUpdate,
+  setName,
+  setDeadline,
+  setCaseNum,
+  setBookingID,
+  setNote,
 }) {
   const [searchParams] = useSearchParams();
   const [filter, setFilter] = useState("");
@@ -92,26 +100,37 @@ function Notes({
 
   // Sort
   const sortBy = searchParams.get("sort") || "date-asc";
-const [field, direction] = sortBy.split("-");
+  const [field, direction] = sortBy.split("-");
 
-const modifier = direction === "asc" ? 1 : -1;
-const sortedNotes = [...filteredNotes].sort((a, b) => {
-  if (field === "deadline") {
-    // For deadline, handle notes without a deadline
-    const aDeadline = a[field] ? new Date(a[field]).getTime() : Infinity;
-    const bDeadline = b[field] ? new Date(b[field]).getTime() : Infinity;
+  const modifier = direction === "asc" ? 1 : -1;
+  const sortedNotes = [...filteredNotes].sort((a, b) => {
+    if (field === "deadline") {
+      // For deadline, handle notes without a deadline
+      const aDeadline = a[field] ? new Date(a[field]).getTime() : Infinity;
+      const bDeadline = b[field] ? new Date(b[field]).getTime() : Infinity;
 
-    return (aDeadline - bDeadline) * modifier;
-  } else if (typeof a[field] === "string" && typeof b[field] === "string") {
-    return a[field].localeCompare(b[field]) * modifier;
-  } else {
-    return (a[field] - b[field]) * modifier;
+      return (aDeadline - bDeadline) * modifier;
+    } else if (typeof a[field] === "string" && typeof b[field] === "string") {
+      return a[field].localeCompare(b[field]) * modifier;
+    } else {
+      return (a[field] - b[field]) * modifier;
+    }
+  });
+
+  function reset() {
+    setName("");
+    setCaseNum("");
+    setBookingID("");
+    setDeadline(null);
+    setNote("");
+    setIsOpenForm(false);
+    setUpdate(false);
   }
-});
 
   function handleSetOpenNote(note) {
     setOpenNote(note);
     setActiveNote(note.name);
+    reset()
   }
 
   return (
@@ -127,10 +146,14 @@ const sortedNotes = [...filteredNotes].sort((a, b) => {
             )}
             <NoRecords>
               <img src={EmptyNotes} alt="no notes"></img>
-              {!filter ? <span>
-                Every great idea starts with a note. <br />
-                Add yours now!
-              </span> : <span>You filtered too much!</span>}
+              {!filter ? (
+                <span>
+                  Every great idea starts with a note. <br />
+                  Add yours now!
+                </span>
+              ) : (
+                <span>You filtered too much!</span>
+              )}
             </NoRecords>
           </>
         ) : (
@@ -148,6 +171,7 @@ const sortedNotes = [...filteredNotes].sort((a, b) => {
                 isActive={note.name === activeNote}
                 onClick={() => handleSetOpenNote(note)}
                 onDelete={() => setIsOpenModal(true)}
+                onEdit={onEdit}
                 filter={filter}
               />
             ))}

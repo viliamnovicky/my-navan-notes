@@ -47,28 +47,42 @@ const Image = styled.img`
   transform: translateX(-50%); */
 `;
 
-function NewNote({ addNewNote, setActiveNote, setOpenNone }) {
-  const [isOpenForm, setIsOpenForm] = useState(false);
+function NewNote({
+  addNewNote,
+  setActiveNote,
+  setOpenNote,
+  isOpenForm,
+  setIsOpenForm,
+  onUpdate,
+  update,
+  setUpdate,
+  name,
+  setName,
+  caseNum,
+  setCaseNum,
+  bookingID,
+  setBookingID,
+  deadline,
+  setDeadline,
+  note,
+  setNote,
+  updateNote,
+  oldName
+}) {
   const [isOpenCCAForm, setIsOpenCCAForm] = useState(false);
-  const [name, setName] = useState("");
-  const [caseNum, setCaseNum] = useState("");
-  const [bookingID, setBookingID] = useState("");
-  const [deadline, setDeadline] = useState(null);
-  const [note, setNote] = useState("");
 
-  const [guestName, setGuestName] = useState('');
-  const [hotelName, setHotelName] = useState('');
-  const [arrival, setArrival] = useState('');
-  const [departure, setDeparture] = useState('');
-  const [companyName, setCompanyName] = useState('');
-  const [companyAddress, setCompanyAddress] = useState('');
-  const [confirmation, setConfirmation] = useState('');
-  const [expNumber, setExpNumber] = useState('');
-  const [cardNumber, setCardNumber] = useState('');
-  const [cvc, setCvc] = useState('');
-  const [cardName, setCardName] = useState('');
-  const [taxId, setTaxId] = useState('');
-
+  const [guestName, setGuestName] = useState("");
+  const [hotelName, setHotelName] = useState("");
+  const [arrival, setArrival] = useState("");
+  const [departure, setDeparture] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [companyAddress, setCompanyAddress] = useState("");
+  const [confirmation, setConfirmation] = useState("");
+  const [expNumber, setExpNumber] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [cvc, setCvc] = useState("");
+  const [cardName, setCardName] = useState("");
+  const [taxId, setTaxId] = useState("");
 
   const [notes, setNotes] = useLocalStorageState([], "notes");
 
@@ -79,24 +93,37 @@ function NewNote({ addNewNote, setActiveNote, setOpenNone }) {
     setDeadline(null);
     setNote("");
     setIsOpenForm(false);
+    setUpdate(false);
+  }
+
+  const newNoteObject = {
+    name,
+    caseNum,
+    bookingID,
+    deadline,
+    note,
+    date: Date.now(),
+  };
+
+  function handleUpdateNote() {
+    updateNote(oldName, newNoteObject)
+    localStorage.setItem("notes", JSON.stringify(notes));
+    toast.success("New Note Updated 🎉");
+    setIsOpenForm(false)
+    setUpdate(false)
+    setActiveNote(name);
+    setOpenNote(newNoteObject);
+    reset()
   }
 
   function createNewNote() {
-    const newNoteObject = {
-      name,
-      caseNum,
-      bookingID,
-      deadline,
-      note,
-      date: Date.now(),
-    };
-    
+
     notes.push(newNoteObject);
     localStorage.setItem("notes", JSON.stringify(notes));
     addNewNote(newNoteObject);
-    toast.success('New Note Created 🎉')
-    setActiveNote(name)
-    setOpenNone(newNoteObject)
+    toast.success("New Note Created 🎉");
+    setActiveNote(name);
+    setOpenNote(newNoteObject);
     reset();
   }
 
@@ -106,45 +133,58 @@ function NewNote({ addNewNote, setActiveNote, setOpenNone }) {
         <OpenForm>
           <Image src={NewNoteImage}></Image>
           <Buttons>
-          <Button size="large" onClick={() => setIsOpenForm(true)}>
-            create new note
-          </Button>
-          <Button size="large" onClick={() => setIsOpenCCAForm(true)}>
-            create CCA form
-          </Button>
+            <Button size="large" onClick={() => setIsOpenForm(true)}>
+              create new note
+            </Button>
+            <Button size="large" onClick={() => setIsOpenCCAForm(true)}>
+              create CCA form
+            </Button>
           </Buttons>
-          
         </OpenForm>
       </StyledNewNote>
     );
 
-    if (isOpenCCAForm) {
-      return (
-        <StyledNewNote>
-          <Heading weight="w400" size="large">
-        create new cca form
-      </Heading>
-          <NewCCA expNumber={expNumber} setExpNumber={setExpNumber} 
-          cardNumber={cardNumber} setCardNumber={setCardNumber}  
-          cvc={cvc}  setCvc={setCvc}  
-          cardName={cardName}  setCardName={setCardName}  
-          companyAddress={companyAddress}  setCompanyAddress={setCompanyAddress}  
-          confirmation={confirmation}  setConfirmation={setConfirmation}  
-          guestName={guestName} setGuestName={setGuestName}  
-          hotelName={hotelName} setHotelName={setHotelName}  
-          arrival={arrival}  setArrival={setArrival} 
-          departure={departure} setDeparture={setDeparture} 
-          companyName={companyName} setCompanyName={setCompanyName} 
-          taxId={taxId} setTaxId={setTaxId}
-          setIsOpenCCAForm={setIsOpenCCAForm }/>
-        </StyledNewNote>
-      )
-    }
+  if (isOpenCCAForm) {
+    return (
+      <StyledNewNote>
+        <Heading weight="w400" size="large">
+          create new cca form
+        </Heading>
+        <NewCCA
+          expNumber={expNumber}
+          setExpNumber={setExpNumber}
+          cardNumber={cardNumber}
+          setCardNumber={setCardNumber}
+          cvc={cvc}
+          setCvc={setCvc}
+          cardName={cardName}
+          setCardName={setCardName}
+          companyAddress={companyAddress}
+          setCompanyAddress={setCompanyAddress}
+          confirmation={confirmation}
+          setConfirmation={setConfirmation}
+          guestName={guestName}
+          setGuestName={setGuestName}
+          hotelName={hotelName}
+          setHotelName={setHotelName}
+          arrival={arrival}
+          setArrival={setArrival}
+          departure={departure}
+          setDeparture={setDeparture}
+          companyName={companyName}
+          setCompanyName={setCompanyName}
+          taxId={taxId}
+          setTaxId={setTaxId}
+          setIsOpenCCAForm={setIsOpenCCAForm}
+        />
+      </StyledNewNote>
+    );
+  }
 
   return (
     <StyledNewNote>
       <Heading weight="w400" size="large">
-        create new note
+        {update ? "update note" : "create new note"}
       </Heading>
       <Form>
         <FormGroup>
@@ -166,7 +206,7 @@ function NewNote({ addNewNote, setActiveNote, setOpenNone }) {
           ></Input>
           <Label for="deadline">Deadline</Label>
         </FormGroup>
-        
+
         <FormGroup>
           <Input
             id="Case"
@@ -196,10 +236,16 @@ function NewNote({ addNewNote, setActiveNote, setOpenNone }) {
         </FormGroup>
       </Form>
       <Buttons>
-        <Button variation="green" onClick={() => createNewNote()}>
-          Create Note
-        </Button>
-        <Button variation="danger" onClick={() => setIsOpenForm(false)}>
+        {update ? (
+          <Button variation="green" onClick={handleUpdateNote}>
+            Update Note
+          </Button>
+        ) : (
+          <Button variation="green" onClick={() => createNewNote()}>
+            Create Note
+          </Button>
+        )}
+        <Button variation="danger" onClick={() => reset()}>
           Cancel
         </Button>
       </Buttons>

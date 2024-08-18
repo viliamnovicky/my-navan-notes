@@ -126,7 +126,7 @@ const Image = styled.img`
   transition: all 0.2s;
 `;
 
-function FullNote({ data, onClose, allNotes, onDelete, isOpenModal, setIsOpenModal}) {
+function FullNote({ data, onClose, allNotes, onDelete, isOpenModal, setIsOpenModal, setUpdate, onEdit}) {
 
   return (
     <>
@@ -179,7 +179,7 @@ function FullNote({ data, onClose, allNotes, onDelete, isOpenModal, setIsOpenMod
       </Note>
       {data.note && (
         <Buttons>
-          <Button>Edit note</Button>
+          <Button onClick={onEdit}>Edit note</Button>
           <Button variation="danger" onClick={() => setIsOpenModal(true)}>Delete note</Button>
         </Buttons>
       )}
