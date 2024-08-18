@@ -47,7 +47,8 @@ const sizes = {
     padding: 0.7rem 1.2rem;
   `,
   large: css`
-    font-size: 1.6rem;
+    font-size: 1.4rem;
+    padding: 0.7rem 1.2rem;
   `,
 };
 

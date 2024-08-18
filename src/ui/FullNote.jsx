@@ -152,7 +152,7 @@ function FullNote({ data, onClose, allNotes, onDelete, isOpenModal, setIsOpenMod
             </Heading>
             <Heading as="p" weight="w900">
               <Tag color="gradient">booking </Tag>
-              {data.bookingID ? <Tag click="true" color="no_bg" size="large" onClick={(e) => copyText(e.target, "Bookind ID")}>{data.bookingID}</Tag> : "XXXXXX"}
+              {data.bookingID ? <Tag click="true" color="none" size="large" onClick={(e) => copyText(e.target, "Bookind ID")}>{data.bookingID}</Tag> : "XXXXXX"}
             </Heading>
           </Container>
           <Container>
