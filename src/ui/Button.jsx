@@ -50,6 +50,10 @@ const variations = {
   light: css`
     background: var(--white);
   `,
+  dark: css`
+    background: var(--gray-400);
+    color: var(--gray-50)
+  `,
 
   green: css`
     color: var(--green-50);

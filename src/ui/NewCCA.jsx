@@ -52,6 +52,31 @@ function NewCCA({
     day: new Date().getDate(),
   };
 
+  function reset() {
+    setConfirmation("")
+    setGuestName("")
+    setHotelName("")
+    setCompanyName("")
+    setArrival("")
+    setDeparture("")
+    setCompanyName("")
+    setCompanyAddress("")
+    setTaxId("")
+    setCardNumber("")
+    setCvc("")
+    setExpNumber("")
+  }
+
+  function handleCancel() {
+    reset()
+    setIsOpenCCAForm(false)
+  }
+
+  function handleClear(e) {
+    e.preventDefault()
+    reset()
+  }
+
   return (
     <Form>
       <FormGroup>
@@ -219,7 +244,10 @@ function NewCCA({
         {/* <Button variation="green" disabled = "true">
           Create CCA
         </Button> */}
-        <Button variation="danger" onClick={() => setIsOpenCCAForm(false)}>
+        <Button variation="dark" onClick={handleClear}>
+          Clear form
+        </Button>
+        <Button variation="danger" onClick={handleCancel}>
           Cancel
         </Button>
       </Buttons>

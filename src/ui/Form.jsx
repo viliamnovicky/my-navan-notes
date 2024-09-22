@@ -12,7 +12,7 @@ export const Form = styled.form`
 export const FormGroup = styled.div`
   width: 100%;
   padding-bottom: 2rem;
-  animation: opacity 0.2s forwards;
+  /* animation: opacity 0.2s forwards; */
 `;
 
 export const CheckboxGroup = styled.div`
