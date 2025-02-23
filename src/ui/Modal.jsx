@@ -9,36 +9,46 @@ const Outer = styled.div`
   width: 100vw;
   height: 100vh;
   backdrop-filter: blur(2px);
-  animation: modal-outer .2s forwards;
+  animation: modal-outer 0.2s forwards;
 `;
 
 const StyledModal = styled.div`
-    padding: 4rem;
-    background: white;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    animation: modal .2s forwards;
-    border-radius: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+  padding: 4rem;
+  background: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: modal 0.2s forwards;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 
-    h1 {
-      padding-top: 0 !important;
-    }
-`
+  h1 {
+    padding-top: 0 !important;
+  }
+`;
 
-function Modal({children, setIsOpenModal}) {
-  return <Outer>
-    <StyledModal>
-        <Button size="dot" variation="light" use="cancel" onClick={() => setIsOpenModal(false)}>✖
+function Modal({ children, setIsOpenModal, setUpdate, update }) {
+  
+  function handleCloseModal() {
+    setIsOpenModal(false), 
+    setUpdate(false);
+    console.log(update)
+  }
+  
+  return (
+    <Outer>
+      <StyledModal>
+        <Button size="dot" variation="light" use="cancel" onClick={handleCloseModal}>
+          ✖
         </Button>
         {children}
-    </StyledModal>
-  </Outer>;
+      </StyledModal>
+    </Outer>
+  );
 }
 
 export default Modal;

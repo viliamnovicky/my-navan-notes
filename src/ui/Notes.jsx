@@ -5,7 +5,6 @@ import Note from "./Note";
 
 import EmptyNotes from "../../public/no-notes.png";
 import { useState } from "react";
-import { useLocalStorageState } from "../hooks/useLocalStorageState";
 import Modal from "./Modal";
 import Button, { Buttons } from "./Button";
 import Heading from "./Heading";

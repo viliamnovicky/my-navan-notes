@@ -284,7 +284,7 @@ img {
   }
   to {
     width: 40vw;
-    height: 35vh;
+    height: auto;
   }
 }
 

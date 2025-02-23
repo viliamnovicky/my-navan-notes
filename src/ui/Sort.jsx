@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Button, { Buttons } from "./Button";
 
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 import dateDown from "../../public/date-down.svg";
 import dateUp from "../../public/date-up.svg";
@@ -36,36 +36,74 @@ const StyledSort = styled.div`
 function Sort({ children }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortBy = searchParams.get("sort") || "date-asc";
-  const [activeFilterButton, setActiveFilterButton] = useState(sortBy)
+  const [activeFilterButton, setActiveFilterButton] = useState(sortBy);
+  const location = useLocation(); // Get the current route
 
   function handleChange(e) {
     searchParams.set("sort", e.target.value);
-    setActiveFilterButton(e.target.value)
+    setActiveFilterButton(e.target.value);
     setSearchParams(searchParams);
   }
 
   return (
     <StyledSort>
       <Buttons amount="four">
-      <Button variation={activeFilterButton !== "name-asc" ? "light" : "primary"} size="dot" value="name-asc" onClick={handleChange}>
-        <img src={activeFilterButton !== "name-asc" ? nameAsc : nameAscActive}></img>
+        <Button
+          variation={activeFilterButton !== "name-asc" ? "light" : "primary"}
+          size="dot"
+          value="name-asc"
+          onClick={handleChange}
+        >
+          <img src={activeFilterButton !== "name-asc" ? nameAsc : nameAscActive}></img>
         </Button>
-        <Button variation={activeFilterButton !== "name-desc" ? "light" : "primary"} size="dot" value="name-desc" onClick={handleChange}>
-        <img src={activeFilterButton !== "name-desc" ? nameDesc : nameDescActive}></img>
+        <Button
+          variation={activeFilterButton !== "name-desc" ? "light" : "primary"}
+          size="dot"
+          value="name-desc"
+          onClick={handleChange}
+        >
+          <img src={activeFilterButton !== "name-desc" ? nameDesc : nameDescActive}></img>
         </Button>
-        <Button variation={activeFilterButton !== "date-asc" ? "light" : "primary"} size="dot" value="date-asc" onClick={handleChange}>
-          <img src={activeFilterButton !== "date-asc" ? dateDown : dateDownActive}></img>
-        </Button>
-        <Button variation={activeFilterButton !== "date-desc" ? "light" : "primary"} size="dot" value="date-desc" onClick={handleChange}>
-        <img src={activeFilterButton !== "date-desc" ? dateUp : dateUpActive}></img>
-        </Button>
-        <Button variation={activeFilterButton !== "deadline-desc" ? "light" : "primary"} size="dot" value="deadline-desc" onClick={handleChange}>
-           <img src={activeFilterButton !== "deadline-desc" ? deadlineAsc : deadlineAscActive}></img>
-        </Button>
-        <Button variation={activeFilterButton !== "deadline-asc" ? "light" : "primary"} size="dot" value="deadline-asc" onClick={handleChange}>
-           <img src={activeFilterButton !== "deadline-asc" ? deadlineDesc : deadlineDescActive}></img>
-        </Button>
-        
+        {location.pathname !== "/templates" && (
+          <>
+            <Button
+              variation={activeFilterButton !== "date-asc" ? "light" : "primary"}
+              size="dot"
+              value="date-asc"
+              onClick={handleChange}
+            >
+              <img src={activeFilterButton !== "date-asc" ? dateDown : dateDownActive}></img>
+            </Button>
+            <Button
+              variation={activeFilterButton !== "date-desc" ? "light" : "primary"}
+              size="dot"
+              value="date-desc"
+              onClick={handleChange}
+            >
+              <img src={activeFilterButton !== "date-desc" ? dateUp : dateUpActive}></img>
+            </Button>
+            <Button
+              variation={activeFilterButton !== "deadline-desc" ? "light" : "primary"}
+              size="dot"
+              value="deadline-desc"
+              onClick={handleChange}
+            >
+              <img
+                src={activeFilterButton !== "deadline-desc" ? deadlineAsc : deadlineAscActive}
+              ></img>
+            </Button>
+            <Button
+              variation={activeFilterButton !== "deadline-asc" ? "light" : "primary"}
+              size="dot"
+              value="deadline-asc"
+              onClick={handleChange}
+            >
+              <img
+                src={activeFilterButton !== "deadline-asc" ? deadlineDesc : deadlineDescActive}
+              ></img>
+            </Button>
+          </>
+        )}
       </Buttons>
       {children}
     </StyledSort>

@@ -52,7 +52,7 @@ const variations = {
   `,
   dark: css`
     background: var(--gray-400);
-    color: var(--gray-50)
+    color: var(--gray-50);
   `,
 
   green: css`
@@ -79,24 +79,23 @@ const use = {
     right: 2rem !important;
     top: 2rem !important;
     font-family: "dosis", "sans-serif" !important;
-    animation: opacity .2s forwards;
+    animation: opacity 0.2s forwards;
     padding: 0;
     font-size: 1.6rem !important;
 
     img {
       width: 100%;
     }
-    
-  `
-}
+  `,
+};
 
 const amount = {
   four: css`
     justify-content: center;
     gap: 1rem;
-    padding: 2rem;
-  `
-}
+    //padding: 2rem;
+  `,
+};
 
 export const Buttons = styled.div`
   display: flex;
@@ -104,7 +103,7 @@ export const Buttons = styled.div`
   align-items: center;
   gap: 2rem;
   ${(props) => amount[props.amount]}
-`
+`;
 
 const Button = styled.button`
   border: none;
