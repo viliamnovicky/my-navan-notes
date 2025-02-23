@@ -284,6 +284,16 @@ img {
   }
   to {
     width: 40vw;
+    height: auto;}
+}
+
+@keyframes modal-mobile {
+  from {
+    width: 5vw;
+    height: 5vh;
+  }
+  to {
+    width: 98vw;
     height: auto;
   }
 }

@@ -26,6 +26,10 @@ const StyledModal = styled.div`
   align-items: center;
   justify-content: space-between;
 
+  @media screen and (max-width: 1000px) {
+    animation: modal-mobile 0.2s forwards;
+  }
+
   h1 {
     padding-top: 0 !important;
   }

@@ -206,7 +206,7 @@ function Templates() {
               {!filter ? (
                 <>
                   <span>Add your first template</span>
-                  <Button onClick={handleOpenModal}>Add template</Button>
+                  <Button onClick={() => setIsOpenModal(true)}>Add template</Button>
                 </>
               ) : (
                 <span>You filtered too much!</span>
