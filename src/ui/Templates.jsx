@@ -250,7 +250,6 @@ function Templates() {
                 placeholder="Name"
                 onChange={(e) => handleInput(e, setName)}
                 autoComplete="off" // Disable autocomplete
-                name="dummy" // Use a non-standard name
               ></Input>
               <Label for="note-name">Name</Label>
             </FormGroup>
@@ -261,7 +260,6 @@ function Templates() {
                 placeholder="Template"
                 onChange={(e) => handleInput(e, setText)}
                 autoComplete="off" // Disable autocomplete
-                name="dummy" // Use a non-standard name
                 rows={10}
               ></Text>
               <Label for="note-name">Template</Label>
