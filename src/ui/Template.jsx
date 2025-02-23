@@ -39,6 +39,8 @@ const StyledName = styled.button`
 
 const StyledText = styled.p`
   max-width: 65%;
+  white-space: pre-wrap; /* Preserves new lines and spaces */
+  word-wrap: break-word;
 
   @media screen and (max-width: 1000px) {
     

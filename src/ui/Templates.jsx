@@ -109,8 +109,8 @@ function Templates() {
 
   const newTemplate = { 
     name,
-    text,
-  }
+    text: text.replace(/\r?\n/g, "\n"), // Ensures newlines are saved correctly
+  };
 
   function updateTemplates(updatedTemplates) {
     setTemplates(updatedTemplates);
