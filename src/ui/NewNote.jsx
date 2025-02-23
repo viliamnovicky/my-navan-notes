@@ -196,7 +196,6 @@ function NewNote({
             placeholder="Name"
             onChange={(e) => handleInput(e, setName)}
             autoComplete="off" // Disable autocomplete
-            name="dummy" // Use a non-standard name
           ></Input>
           <Label for="note-name">Name</Label>
         </FormGroup>
@@ -208,7 +207,6 @@ function NewNote({
             value={deadline}
             onChange={(e) => handleInput(e, setDeadline)}
             autoComplete="off" // Disable autocomplete
-            name="dummy" // Use a non-standard name
           ></Input>
           <Label for="deadline">Deadline</Label>
         </FormGroup>
@@ -220,7 +218,6 @@ function NewNote({
             value={caseNum}
             onChange={(e) => handleInput(e, setCaseNum)}
             autoComplete="off" // Disable autocomplete
-            name="dummy" // Use a non-standard name
           ></Input>
           <Label for="Case">Case Num</Label>
         </FormGroup>
@@ -231,7 +228,6 @@ function NewNote({
             value={bookingID.toUpperCase()}
             onChange={(e) => handleInput(e, setBookingID)}
             autoComplete="off" // Disable autocomplete
-            name="dummy" // Use a non-standard name
           ></Input>
           <Label for="Booking_id">Booking ID</Label>
         </FormGroup>
@@ -243,7 +239,6 @@ function NewNote({
             value={note}
             onChange={(e) => handleInput(e, setNote)}
             autoComplete="off" // Disable autocomplete
-            name="dummy" // Use a non-standard name
           ></Text>
         </FormGroup>
       </Form>
