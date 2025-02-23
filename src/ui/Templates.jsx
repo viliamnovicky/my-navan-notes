@@ -266,7 +266,7 @@ function Templates() {
             </FormGroup>
           <Buttons>
             <Button onClick={update ? () => updateTemplate(oldName, newTemplate) : createNewTemplate}>save</Button>
-            <Button variation="danger" onClick={() => setIsOpenModal(false)}>
+            <Button variation="danger" onClick={reset}>
               cancel
             </Button>
           </Buttons>
