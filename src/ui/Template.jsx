@@ -39,6 +39,11 @@ const StyledName = styled.button`
 
 const StyledText = styled.p`
   max-width: 65%;
+
+  @media screen and (max-width: 1000px) {
+    
+    max-width: 100%
+  }
 `;
 
 function Template({ data, filter, onClick, onUpdate }) {
