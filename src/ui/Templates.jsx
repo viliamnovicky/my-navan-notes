@@ -10,8 +10,11 @@ import Template from "./Template";
 import Modal from "./Modal";
 import Heading from "./Heading";
 import Button, { Buttons } from "./Button";
-import { useLocalStorageState } from "../hooks/useLocalStorageState";
 import toast from "react-hot-toast";
+import useTemplates from "../hooks/useTemplates";
+import useAddTemplate from "../hooks/useAddTemplate";
+import useDeleteTemplate from "../hooks/useDeleteTemplate";
+import { useUpdateTemplate } from "../hooks/useUpdateTemplate";
 
 const NoRecords = styled.p`
   width: 100%;
@@ -91,79 +94,79 @@ const ActionButtons = styled.div`
 
 function Templates() {
   const [searchParams] = useSearchParams();
-  const [templates, setTemplates] = useLocalStorageState([], "templates");
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [name, setName] = useState("");
   const [oldName, setOldName] = useState("");
   const [text, setText] = useState("");
   const [update, setUpdate] = useState(false);
+  const [filter, setFilter] = useState("");
+  const { templates, isLoading, error } = useTemplates(); // Fetch templates
+  const { handleAddTemplate, isLoading: addingLoading, error: addError } = useAddTemplate();
+  const { mutate: deleteTemplate } = useDeleteTemplate(); // Use the delete mutation
+  const { mutate: updateTemplate, isLoading: isUpdating } = useUpdateTemplate();
 
   function handleOpenModal(data) {
-    setIsOpenModal(true), 
-    console.log(isOpenModal);
+    setIsOpenModal(true), console.log(isOpenModal);
     setUpdate(true);
-    setName(data.name)
-    setOldName(data.name)
-    setText(data.text)
+    setName(data.name);
+    setOldName(data.name);
+    setText(data.text);
   }
 
-  const newTemplate = { 
+  const handleDeleteTemplate = async (name) => {
+    try {
+      deleteTemplate(name);
+    } catch (error) {
+      console.error("Error deleting template:", error);
+    }
+  };
+
+  function handleUpdate(e) {
+    e.preventDefault(); // Prevents page reload
+    if (!name.trim() || !text.trim()) {
+      toast.error("Template name and text cannot be empty.");
+      return;
+    }
+
+    console.log("pici tam")
+
+    updateTemplate(
+      { name: oldName, updatedName: name, updatedText: text },
+      {
+        onSuccess: () => {
+          toast.success("Template updated successfully!");
+          reset();
+        },
+        onError: (error) => {
+          console.error("Update error:", error);
+          toast.error("Failed to update template.");
+        },
+      }
+    );
+  }
+
+  const newTemplate = {
     name,
     text: text.replace(/\r?\n/g, "\n"), // Ensures newlines are saved correctly
   };
 
-  function updateTemplates(updatedTemplates) {
-    setTemplates(updatedTemplates);
-  }
-
   function reset() {
     setName("");
     setOldName("");
-    setText(""); 
+    setText("");
     setIsOpenModal(false);
     setUpdate(false);
   }
 
   function createNewTemplate() {
-    templates.push(newTemplate);
-    localStorage.setItem("templates", JSON.stringify(templates));
+    handleAddTemplate(newTemplate);
     toast.success("New Template Created 🎉");
     reset();
   }
 
-  function updateTemplate(oldName, data) {
-    setTemplates((prevTemplates) =>
-      prevTemplates.map((temp) => (temp.name === oldName ? { ...temp, ...data } : temp))
-    );
+  if (isLoading) {
+    return <div>Loading templates...</div>;
   }
-
-  function handleDeleteTemplate(name) {
-    const updatedData = templates.filter((template) => template.name !== name);
-    updateTemplates(updatedData);
-    toast.success("Template Deleted 🎈", {
-      style: {
-        backgroundColor: "var(--red-50)",
-        color: "var(--red-400)",
-      },
-    });
-
-    setIsOpenModal(false);
-  }
-
-  const data = [
-    { name: ".providingPL", text: "Thank you for PL" },
-    { name: ".wellNoted", text: "This is well noted" },
-    {
-      name: ".doNotAcceptCCA",
-      text: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
-    },
-    {
-      name: ".payUponArrivalCustomer",
-      text: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and  uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
-    },
-  ];
-
-  const [filter, setFilter] = useState("");
 
   // Filter data with partial matches
   const filteredTemplates = templates.filter((temp) => {
@@ -240,8 +243,10 @@ function Templates() {
         )}
       </StyledTemplates>
       {isOpenModal && (
-        <Modal setIsOpenModal={setIsOpenModal } setUpdate={setUpdate} update={update}>
-          <Heading weight="w300">{update === true ? "Update template" : "Add new template"}</Heading>
+        <Modal setIsOpenModal={setIsOpenModal} setUpdate={setUpdate} update={update}>
+          <Heading weight="w300">
+            {update === true ? "Update template" : "Add new template"}
+          </Heading>
           <Form>
             <FormGroup>
               <Input
@@ -264,12 +269,12 @@ function Templates() {
               ></Text>
               <Label for="note-name">Template</Label>
             </FormGroup>
-          <Buttons>
-            <Button onClick={update ? () => updateTemplate(oldName, newTemplate) : createNewTemplate}>save</Button>
-            <Button variation="danger" onClick={reset}>
-              cancel
-            </Button>
-          </Buttons>
+            <Buttons>
+              <Button onClick={update ? handleUpdate : createNewTemplate}>save</Button>
+              <Button variation="danger" onClick={reset}>
+                cancel
+              </Button>
+            </Buttons>
           </Form>
         </Modal>
       )}
