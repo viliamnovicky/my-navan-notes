@@ -6,6 +6,13 @@ import { logout } from "../utils/apiAuth";
 const StyledNavbar = styled.nav`
   display: flex;
   gap: 2rem;
+  width: 100vw;
+
+  @media (max-width: 1365px) {
+    justify-content: right;
+    padding: 0 1rem;
+
+  }
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -23,6 +30,13 @@ const StyledNavLink = styled(NavLink)`
     padding: 0.5rem 1.5rem;
     transition: all 0.3s;
     border-bottom: 2px solid transparent;
+
+    @media (max-width: 1365px) {
+    font-size: 1rem;
+    gap: 0.2rem;
+    padding: 0.5rem .8rem;
+
+  }
   }
 
   /* This works because react-router places the active class on the active NavLink */
@@ -42,6 +56,13 @@ const StyledNavButton = styled.button`
   font-weight: 500;
   padding: 0.5rem 1.5rem;
   border-radius: 2rem;
+  display: flex;
+
+  @media (max-width: 1365px) {
+    font-size: 1rem;
+    gap: 0.2rem;
+    padding: 0.5rem .8rem;
+  }
 
   /* This works because react-router places the active class on the active NavLink */
   &:hover {

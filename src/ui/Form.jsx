@@ -117,6 +117,11 @@ export const Input = styled.input`
   width: 100%;
   width: 100%;
 
+  @media (max-width: 1365px) {
+    font-size: 1.2rem;
+    padding: 1rem 1rem;
+  }
+
   &:disabled {
     background: var(--gray-50);
     border: none;

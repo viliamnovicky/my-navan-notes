@@ -10,6 +10,10 @@ const StyledHeader = styled.header`
     justify-content: space-between;
     padding-right: 4rem;
 
+    @media (max-width: 1365px) {
+    padding-right: 0rem;
+  }
+
 `
 
 function Header({children}) {

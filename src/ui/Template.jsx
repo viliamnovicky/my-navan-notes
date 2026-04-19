@@ -12,10 +12,10 @@ const StyledTemplate = styled.div`
   padding: 2rem;
   gap: 5rem;
 
-  @media screen and (max-width: 1000px) {
+  @media (max-width: 1365px) {
     flex-direction: column;
     gap: 2rem;
-    //width: 100vw;
+    font-size: 1.2rem;
   }
 `;
 

@@ -18,12 +18,12 @@ import { useUpdateTemplate } from "../hooks/useUpdateTemplate";
 
 const NoRecords = styled.p`
   width: 100%;
-  height: 100%;
+  height: 60rem;
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 4rem;
+  padding: 5rem;
   background: var(--white);
   display: flex;
   flex-direction: column;
@@ -38,10 +38,20 @@ const NoRecords = styled.p`
   span {
     font-family: "Pacifico", cursive;
   }
+
+  img {
+    height: 100%;
+    width: auto;
+
+    @media (max-width: 1365px) {
+    width: 100%;
+    height: auto;
+  }
+  }
 `;
 
 const StyledTemplates = styled.div`
-  max-width: 80rem;
+  width: 100%;
   margin: auto;
   margin-top: 2rem;
   height: calc(100vh - 11rem);
@@ -56,6 +66,10 @@ const StyledTemplates = styled.div`
   .active {
     color: var(--white);
   }
+
+  @media (max-width: 1365px) {
+    width: 100% !important;
+  }
 `;
 const Filter = styled.div`
   background: var(--white);
@@ -65,8 +79,12 @@ const Filter = styled.div`
   top: 0;
   z-index: 5;
   border-radius: 2rem;
-  width: 100%;
+  width: 80rem;
   height: auto;
+
+  @media (max-width: 1365px) {
+    width: 100%;
+  }
 `;
 
 const TemplatesContainer = styled.div`
@@ -79,10 +97,11 @@ const TemplatesContainer = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   overflow-y: scroll;
-  padding-left: 2rem;
+  padding-left: 1.5rem;
+  margin-top: 1rem;
 
-  @media screen and (max-width: 1000px) {
-    padding-left: 0;
+  @media (max-width: 1365px) {
+    width: 100%;
   }
 `;
 
