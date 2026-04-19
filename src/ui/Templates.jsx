@@ -106,7 +106,7 @@ function Templates() {
   const { mutate: updateTemplate, isLoading: isUpdating } = useUpdateTemplate();
 
   function handleOpenModal(data) {
-    setIsOpenModal(true), console.log(isOpenModal);
+    (setIsOpenModal(true), console.log(isOpenModal));
     setUpdate(true);
     setName(data.name);
     setOldName(data.name);
@@ -128,8 +128,6 @@ function Templates() {
       return;
     }
 
-    console.log("pici tam")
-
     updateTemplate(
       { name: oldName, updatedName: name, updatedText: text },
       {
@@ -141,7 +139,7 @@ function Templates() {
           console.error("Update error:", error);
           toast.error("Failed to update template.");
         },
-      }
+      },
     );
   }
 

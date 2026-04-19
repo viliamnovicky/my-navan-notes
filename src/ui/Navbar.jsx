@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth } from "../hooks/useAuth";
+import { logout } from "../utils/apiAuth";
 
 const StyledNavbar = styled.nav`
   display: flex;
@@ -18,7 +20,7 @@ const StyledNavLink = styled(NavLink)`
     color: var(--gray-900);
     font-size: 1.6rem;
     font-weight: 500;
-    padding: .5rem 1.5rem;
+    padding: 0.5rem 1.5rem;
     transition: all 0.3s;
     border-bottom: 2px solid transparent;
   }
@@ -32,11 +34,33 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
+const StyledNavButton = styled.button`
+  text-transform: uppercase;
+  background: white;
+  border: none;
+  font-size: 1.6rem;
+  font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
+
+  /* This works because react-router places the active class on the active NavLink */
+  &:hover {
+    background: var(--gray-100);
+  }
+`;
+
 function Navbar() {
+  const user = useAuth();
+  console.log(user.user);
   return (
     <StyledNavbar>
       <StyledNavLink to="/notes">Notes</StyledNavLink>
       <StyledNavLink to="/templates">Templates</StyledNavLink>
+      {user.user ? (
+        <StyledNavButton onClick={() => logout()}>Log out</StyledNavButton>
+      ) : (
+        <StyledNavLink to="/login">Log in</StyledNavLink>
+      )}
     </StyledNavbar>
   );
 }

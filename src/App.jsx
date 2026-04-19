@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AppLayout from "./ui/AppLayout";
 import TemplatesPage from "./Pages.jsx/TemplatesPage";
 import NotesPage from "./Pages.jsx/NotesPage";
+import ProtectedRoute from "./ui/ProtectedRoute";
+import LoginPage from "./Pages.jsx/LoginPage";
 
 const queryClient = new QueryClient();
 
@@ -15,7 +17,15 @@ function App() {
           <Route element={<AppLayout />}>
             <Route index element={<NotesPage replace to="notes" />}></Route>
             <Route path="notes" element={<NotesPage />}></Route>
-            <Route path="templates" element={<TemplatesPage />}></Route>
+            <Route
+              path="templates"
+              element={
+                <ProtectedRoute>
+                  <TemplatesPage />
+                </ProtectedRoute>
+              }
+            />{" "}
+            <Route path="login" element={<LoginPage />}></Route>
           </Route>
         </Routes>
         <Toaster

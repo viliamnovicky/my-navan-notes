@@ -1,11 +1,20 @@
-import { collection, getDocs, addDoc } from 'firebase/firestore/lite';
-import { database } from './firebase';  // Import the initialized Firestore instance
-import { deleteDoc, query, where, updateDoc  } from "firebase/firestore/lite";
+import { collection, getDocs, addDoc } from "firebase/firestore";
+import { deleteDoc, query, where, updateDoc } from "firebase/firestore";
 // Function to get templates from Firestore
+import { auth, database } from "../utils/firebase";
+
 export const getTemplates = async () => {
   try {
-    // Reference to the 'templates' collection in Firestore
-    const templatesCollection = collection(database, 'templates');
+    const user = auth.currentUser;
+
+    if (!user) {
+      console.log("No user logged in.");
+      return [];
+    }
+
+    // Path: users/{email}/Templates
+    const templatesCollection = collection(database, "users", user.email, "Templates");
+
     const templatesSnapshot = await getDocs(templatesCollection);
 
     if (templatesSnapshot.empty) {
@@ -13,7 +22,6 @@ export const getTemplates = async () => {
       return [];
     }
 
-    // Map the documents to include the document ID
     const templates = templatesSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -29,52 +37,43 @@ export const getTemplates = async () => {
 // Function to add a new template to Firestore
 export const addTemplate = async (data) => {
   try {
-    const templatesCollection = collection(database, 'templates');
+    const user = auth.currentUser;
+
+    if (!user) {
+      throw new Error("User not logged in");
+    }
+
+    // Path: users/{email}/Templates
+    const templatesCollection = collection(database, "users", user.email, "Templates");
+
     const docRef = await addDoc(templatesCollection, {
       name: data.name,
-      text: data.text
+      text: data.text,
+      createdAt: Date.now(),
     });
 
-    console.log("Document written with ID: ", docRef.id);
-    return { id: docRef.id};
+    console.log("Template created with ID:", docRef.id);
+
+    return { id: docRef.id };
   } catch (error) {
-    console.error("Error adding template: ", error);
+    console.error("Error adding template:", error);
     throw new Error("Failed to add template");
   }
 };
 
 export async function deleteTemplate(name) {
-  // Get the reference to the 'templates' collection
-  const templateRef = collection(database, 'templates');
-  
-  // Query the collection for the document with the specific name
-  const q = query(templateRef, where("name", "==", name));
-
   try {
-    // Get the documents matching the query
-    const querySnapshot = await getDocs(q);
+    const user = auth.currentUser;
 
-    // Ensure that a document with the specified name exists
-    if (!querySnapshot.empty) {
-      const templateDocRef = querySnapshot.docs[0].ref; // Get the reference of the first document
-
-      // Delete the document
-      await deleteDoc(templateDocRef);
-      console.log(`Template with name ${name} deleted successfully.`);
-    } else {
-      console.error(`No template found with name: ${name}`);
+    if (!user) {
+      throw new Error("User not logged in");
     }
-  } catch (error) {
-    console.error("Error deleting template from Firestore:", error);
-    throw error; // Rethrow the error for better error handling
-  }
-}
 
-export async function updateTemplate(name, updatedName, updatedText) {
-  const templateRef = collection(database, "templates");
-  const q = query(templateRef, where("name", "==", name));
+    // Path: users/{email}/Templates
+    const templatesRef = collection(database, "users", user.email, "Templates");
 
-  try {
+    // Query for template by name
+    const q = query(templatesRef, where("name", "==", name));
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
@@ -82,15 +81,49 @@ export async function updateTemplate(name, updatedName, updatedText) {
       return;
     }
 
-    // Proceed with updating
+    // Delete the first matching document
     const templateDocRef = querySnapshot.docs[0].ref;
+    await deleteDoc(templateDocRef);
+
+    console.log(`Template "${name}" deleted successfully.`);
+  } catch (error) {
+    console.error("Error deleting template:", error);
+    throw error;
+  }
+}
+
+export async function updateTemplate(name, updatedName, updatedText) {
+  try {
+    const user = auth.currentUser;
+
+    if (!user) {
+      throw new Error("User not logged in");
+    }
+
+    // Path: users/{email}/Templates
+    const templatesRef = collection(database, "users", user.email, "Templates");
+
+    // Query template by name
+    const q = query(templatesRef, where("name", "==", name));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      console.error(`No template found with name: ${name}`);
+      return;
+    }
+
+    // Update the first matching document
+    const templateDocRef = querySnapshot.docs[0].ref;
+
     await updateDoc(templateDocRef, {
       name: updatedName,
       text: updatedText,
+      updatedAt: Date.now(),
     });
 
-    console.log(`Template with name ${name} updated successfully.`);
+    console.log(`Template "${name}" updated successfully.`);
   } catch (error) {
     console.error("Error updating template in Firestore:", error);
+    throw error;
   }
 }
