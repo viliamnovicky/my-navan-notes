@@ -44,9 +44,9 @@ const NoRecords = styled.p`
     width: auto;
 
     @media (max-width: 1365px) {
-    width: 100%;
-    height: auto;
-  }
+      width: 100%;
+      height: auto;
+    }
   }
 `;
 
@@ -69,6 +69,7 @@ const StyledTemplates = styled.div`
 
   @media (max-width: 1365px) {
     width: 100% !important;
+    height: calc(100vh - 8rem);
   }
 `;
 const Filter = styled.div`
@@ -102,6 +103,7 @@ const TemplatesContainer = styled.div`
 
   @media (max-width: 1365px) {
     width: 100%;
+    height: calc(100vh - 11rem);
   }
 `;
 
@@ -109,6 +111,48 @@ const ActionButtons = styled.div`
   display: flex;
   gap: 1rem;
   padding: 2rem 0;
+  visibility: visible;
+
+  @media (max-width: 1365px) {
+    visibility: hidden;
+  }
+`;
+
+const ActionButtonsPhone = styled.div`
+  display: flex;
+  gap: 1rem;
+  padding: 2rem 0;
+  border-radius: 2rem;
+  position: absolute;
+  z-index: 5;
+  right: 2rem;
+  visibility: hidden;
+
+  @media (max-width: 1365px) {
+    background: white;
+    justify-content: center;
+    visibility: visible;
+  }
+`;
+
+const AddButton = styled.button`
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  background: var(--green-400);
+  color: white;
+  border-radius: 150rem;
+  box-shadow: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+  text-transform: uppercase;
+
+  &:hover {
+    box-shadow: 0px 0.2rem 1rem rgba(0, 0, 0, 0.5);
+     background: var(--green-500);
+  }
 `;
 
 function Templates() {
@@ -217,7 +261,7 @@ function Templates() {
           <>
             {filter && (
               <Filter>
-                <Sort />
+                <Sort setIsOpenModal={setIsOpenModal} />
                 <Search value={filter} onChange={(e) => handleInput(e, setFilter)} />
               </Filter>
             )}
@@ -239,6 +283,9 @@ function Templates() {
               <Sort />
               <Search value={filter} onChange={(e) => handleInput(e, setFilter)} />
             </Filter>
+            <ActionButtonsPhone>
+              <AddButton onClick={() => setIsOpenModal(true)}>+</AddButton>
+            </ActionButtonsPhone>
             <TemplatesContainer>
               {sortedTemplates.map((temp) => (
                 <Template
