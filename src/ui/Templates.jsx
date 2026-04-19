@@ -69,7 +69,6 @@ const StyledTemplates = styled.div`
 
   @media (max-width: 1365px) {
     width: 100% !important;
-    height: calc(100vh - 8rem);
   }
 `;
 const Filter = styled.div`
