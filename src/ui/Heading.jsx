@@ -34,43 +34,49 @@ const weights = {
 };
 
 const transformations = {
-    uppercase: css`
-        text-transform: uppercase;
-    `,
-    lowercase: css`
-        text-transform: lowercase;
-    `,
-    capitalize: css`
-        text-transform: capitalize;
-    `,
-    none: css`
-        text-transform: none;
-    `
-}
+  uppercase: css`
+    text-transform: uppercase;
+  `,
+  lowercase: css`
+    text-transform: lowercase;
+  `,
+  capitalize: css`
+    text-transform: capitalize;
+  `,
+  none: css`
+    text-transform: none;
+  `,
+};
 
 const aligns = {
-    left: css`
-        text-align: left;
-    `,
-    right: css`
-        text-align: right;
-    `,
-    center: css`
-        text-align: center;
-    `
-}
+  left: css`
+    text-align: left;
+  `,
+  right: css`
+    text-align: right;
+  `,
+  center: css`
+    text-align: center;
+  `,
+};
 
 const fonts = {
   curs: css`
     font-family: "Pacifico", cursive;
-  `
-}
+  `,
+
+  typewriter: css`
+    font-family: "Courier New", Courier, "IBM Plex Mono", monospace;
+    font-weight: bold;
+  `,
+};
 
 const Heading = styled.h1`
   text-transform: uppercase;
   width: 100%;
   text-align: center;
   padding-top: 2rem;
+
   ${(props) => sizes[props.size]}
   ${(props) => weights[props.weight]}
   ${(props) => transformations[props.transform]}

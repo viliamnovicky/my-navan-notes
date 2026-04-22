@@ -13,13 +13,13 @@ import { useSearchParams } from "react-router-dom";
 import { handleInput } from "../utils/helpers";
 
 const StyledNotes = styled.div`
-  width: calc(25vw + 1rem);
-  height: calc(100% - 12rem);
+  width: 100%;
+  height: 100%;
   border-radius: 2rem;
-  position: absolute;
-  left: 2rem;
-  transform: translateY(-50%);
-  top: calc(50% + 4rem);
+  position: relative;
+  //left: 2rem;
+  //transform: translateY(-50%);
+  //top: calc(50% + 4rem);
   padding-top: 0;
   display: flex;
   flex-direction: column;
@@ -83,6 +83,8 @@ function Notes({
   setCaseNum,
   setBookingID,
   setNote,
+  setIsNoteVisible,
+  isNoteVisible
 }) {
   const [searchParams] = useSearchParams();
   const [filter, setFilter] = useState("");
@@ -129,6 +131,7 @@ function Notes({
   function handleSetOpenNote(note) {
     setOpenNote(note);
     setActiveNote(note.name);
+    setIsNoteVisible(!isNoteVisible)
     reset()
   }
 

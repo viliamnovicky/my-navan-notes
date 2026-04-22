@@ -12,15 +12,23 @@ import { handleInput } from "../utils/helpers";
 
 const StyledNewNote = styled.div`
   background: var(--white);
-  width: 25vw;
-  height: calc(100% - 12rem);
+  width: 100%;
+  height: 100%;
   border-radius: 2rem;
-  position: absolute;
+  //position: absolute;
   right: 2rem;
-  transform: translateY(-50%);
-  top: calc(50% + 4rem);
+  //transform: translateY(-50%);
+  //top: calc(50% + 4rem);
   overflow-y: auto;
   padding-left: 1.5rem;
+
+  @media (max-width: 1365px) {
+    height: 0rem;
+    visibility: hidden;
+    opacity: 0;
+
+    
+  }
 
   ${Buttons} {
     padding-bottom: 2rem;
@@ -83,7 +91,7 @@ function NewNote({
   const [cvc, setCvc] = useState("");
   const [cardName, setCardName] = useState("");
   const [taxId, setTaxId] = useState("");
-  const [charges, setCharges] = useState([])
+  const [charges, setCharges] = useState([]);
 
   const [notes, setNotes] = useLocalStorageState([], "notes");
 

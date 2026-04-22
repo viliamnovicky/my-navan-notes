@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Heading from "./Heading";
 import Tag from "./Tag";
 import Wave from "../../public/wave.png";
@@ -6,18 +6,43 @@ import Button, { Buttons } from "./Button";
 import { copyText, formatDate, formatDateAndTime, setUrgency } from "../utils/helpers";
 import Modal from "./Modal";
 
+const visibility = {
+  visible: css`
+    visibility: visible;
+    opacity: 1;
+  `,
+  hidden: css`
+    visibility: hidden;
+    opacity: 0;
+    z-index: -1;
+  `,
+};
 
 const StyledFullNote = styled.div`
   background: var(--white);
-  width: 45vw;
-  height: calc(100% - 12rem);
+  width: calc(100% - 1.5rem);
+  margin: left;
+  height: 100%;
   border-radius: 2rem;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  top: calc(50% + 4rem);
+  position: relative;
+  margin: left;
+  //left: 50%;
+  //transform: translate(-50%, -50%);
+  //top: calc(50% + 4rem);
   padding: 4rem;
   overflow: hidden;
+
+  @media (max-width: 1365px) {
+    height: 90vh;
+    //visibility: hidden;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: calc(50% + 4rem);
+    position: absolute;
+    z-index: 10;
+    padding: 1rem
+    ${(props) => visibility[props.visibility]}
+  }
 
   ${Buttons} {
     margin-top: 5rem;
@@ -30,12 +55,14 @@ const StyledFullNote = styled.div`
     transform: translateX(50%);
     width: 70%;
     opacity: 1;
-    z-index: -1;
+    z-index: 1;
   }
 
   .notes {
     font-family: "Shadows Into Light Two", cursive;
+    font-family: "Courier New", Courier, "IBM Plex Mono", monospace;
     font-size: 2rem;
+    font-weight: bold;
     padding: 0;
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
@@ -47,7 +74,12 @@ const StyledFullNote = styled.div`
     background: linear-gradient(to bottom, #f1f1f4, 1px, transparent 1px) repeat-y; /* Line color */
     background-size: 100% 4rem; /* Adjust to match the line height */
     margin: 0; /* Remove default margin to better control layout */
-  
+
+    @media (max-width: 1365px) {
+    font-size: 1.6rem;
+    line-height: 2.5;
+  }
+
     &::before {
       content: "";
       position: absolute;
@@ -66,14 +98,7 @@ const StyledFullNote = styled.div`
       left: 2rem;
       bottom: 0;
     }
-  
   }
-`;
-
-const Header = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  align-items: center;
 `;
 
 const Details = styled.div`
@@ -87,17 +112,29 @@ const Details = styled.div`
   margin-top: 2rem;
   animation: opacity 0.2s forwards;
 
+  @media (max-width: 1365px) {
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+
   ${Heading} {
     display: flex;
     align-items: center;
     gap: 1rem;
     justify-content: space-between;
-    width: 25rem;
     height: 6rem;
     margin-left: 0;
     padding: 1.5rem;
     border-radius: 2rem;
     width: 100%;
+
+    @media (max-width: 1365px) {
+    width: 100%;
+    height: 6rem;
+    font-size: 1rem;
+    padding: 1rem;
+  }
   }
 
   ${Heading}:nth-child(1),${Heading}:nth-child(3) {
@@ -126,72 +163,118 @@ const Image = styled.img`
   transition: all 0.2s;
 `;
 
-function FullNote({ data, onClose, allNotes, onDelete, isOpenModal, setIsOpenModal, setUpdate, onEdit}) {
-
+function FullNote({
+  data,
+  onClose,
+  allNotes,
+  onDelete,
+  isOpenModal,
+  setIsOpenModal,
+  setUpdate,
+  onEdit,
+  isNoteVisible,
+  setIsNoteVisible
+}) {
   return (
     <>
-    <StyledFullNote>
-      <Heading size="large" weight="w400" font="curs" transform="none">
-        {allNotes.length === 0 ? <span>Your Note Details Will Appear Here<br/>Go ahead and create your first one</span> : data.name ? data.name : <span>Your Note Details Will Appear Here<br/>"Click" On Some Note</span>}
-        {data && (
-          <Button variation="light" size="dot" use="cancel" onClick={onClose}>
-            ✖
-          </Button>
-        )}
-      </Heading>
-      {data && (
-        <Details>
-          <Container>
-            <Heading as="p" weight="w900">
-              <Tag color="gradient">created </Tag>
-              {data.date ? formatDateAndTime.format(data.date) : "??.??.????"}
-            </Heading>
-            <Heading as="p" weight="w900">
-              <Tag color="gradient">deadline </Tag>
-              {data.deadline ? formatDate.format(new Date(data.deadline)) : "no deadline"}
-            </Heading>
-            <Heading as="p" weight="w900">
-              <Tag color="gradient">booking </Tag>
-              {data.bookingID ? <Tag click="true" color="none" size="large" onClick={(e) => copyText(e.target, "Bookind ID")}>{data.bookingID}</Tag> : "XXXXXX"}
-            </Heading>
-          </Container>
-          <Container>
-            <Heading as="p" weight="w900">
-              priority
-              <Tag color={data.deadline ? setUrgency(data.deadline) : "none"} size="medium">
-              {data.deadline ? setUrgency(data.deadline) : "none"}
-              </Tag>
-            </Heading>
-            <Heading as="p" weight="w900" />
-            <Heading as="p" weight="w900">
-              case num
-              <Tag color="black" click="true" size="medium" onClick={(e) => copyText(e.target, "Case Number")}>
-                {data.caseNum ? data.caseNum : "XXXXXXXX"}
-              </Tag>
-            </Heading>
-          </Container>
-        </Details>
-      )}
-      <Note>
-        <Heading as="p" transform="none" className="notes" weight="w400">
-          {data.note && data.note}
+      <StyledFullNote visibility={isNoteVisible ? "visible" : "hidden"}>
+        <Heading size="large" weight="w400" font="typewriter" transform="none">
+          {allNotes.length === 0 ? (
+            <span>
+              Your Note Details Will Appear Here
+              <br />
+              Go ahead and create your first one
+            </span>
+          ) : data.name ? (
+            data.name
+          ) : (
+            <span>
+              Your Note Details Will Appear Here
+              <br />
+              "Click" On Some Note
+            </span>
+          )}
+          {data && (
+            <Button variation="light" size="dot" use="cancel" onClick={onClose}>
+              ✖
+            </Button>
+          )}
         </Heading>
-      </Note>
-      {data.note && (
-        <Buttons>
-          <Button onClick={onEdit}>Edit note</Button>
-          <Button variation="danger" onClick={() => setIsOpenModal(true)}>Delete note</Button>
-        </Buttons>
-      )}
-      <Image src={Wave} className={data.note ? "" : "empty"}></Image>
-    </StyledFullNote>
-    {isOpenModal && <Modal setIsOpenModal={setIsOpenModal}>
-          <Heading weight="w300" >Are you sure?</Heading>
+        {data && (
+          <Details>
+            <Container>
+              <Heading as="p" weight="w900">
+                <Tag color="gradient">created </Tag>
+                {data.date ? formatDateAndTime.format(data.date) : "??.??.????"}
+              </Heading>
+              <Heading as="p" weight="w900">
+                <Tag color="gradient">deadline </Tag>
+                {data.deadline ? formatDate.format(new Date(data.deadline)) : "no deadline"}
+              </Heading>
+              <Heading as="p" weight="w900">
+                <Tag color="gradient">booking </Tag>
+                {data.bookingID ? (
+                  <Tag
+                    click="true"
+                    color="none"
+                    size="large"
+                    onClick={(e) => copyText(e.target, "Bookind ID")}
+                  >
+                    {data.bookingID}
+                  </Tag>
+                ) : (
+                  "XXXXXX"
+                )}
+              </Heading>
+            </Container>
+            <Container>
+              <Heading as="p" weight="w900">
+                priority
+                <Tag color={data.deadline ? setUrgency(data.deadline) : "none"} size="medium">
+                  {data.deadline ? setUrgency(data.deadline) : "none"}
+                </Tag>
+              </Heading>
+              <Heading as="p" weight="w900" />
+              <Heading as="p" weight="w900">
+                case num
+                <Tag
+                  color="black"
+                  click="true"
+                  size="medium"
+                  onClick={(e) => copyText(e.target, "Case Number")}
+                >
+                  {data.caseNum ? data.caseNum : "XXXXXXXX"}
+                </Tag>
+              </Heading>
+            </Container>
+          </Details>
+        )}
+        <Note>
+          <Heading as="p" transform="none" className="notes" weight="w400">
+            {data.note && data.note}
+          </Heading>
+        </Note>
+        {data.note && (
+          <Buttons>
+            <Button onClick={onEdit}>Edit note</Button>
+            <Button variation="danger" onClick={() => setIsOpenModal(true)}>
+              Delete note
+            </Button>
+          </Buttons>
+        )}
+        <Image src={Wave} className={data.note ? "" : "empty"}></Image>
+      </StyledFullNote>
+      {isOpenModal && (
+        <Modal setIsOpenModal={setIsOpenModal}>
+          <Heading weight="w300">Are you sure?</Heading>
           <Buttons>
             <Button onClick={onDelete}>delete</Button>
-            <Button variation="danger" onClick={() => setIsOpenModal(false)}>cancel</Button>
+            <Button variation="danger" onClick={() => setIsOpenModal(false)}>
+              cancel
+            </Button>
           </Buttons>
-        </Modal>}
+        </Modal>
+      )}
     </>
   );
 }

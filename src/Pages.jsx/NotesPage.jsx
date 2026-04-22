@@ -4,8 +4,25 @@ import { useLocalStorageState } from "../hooks/useLocalStorageState";
 import FullNote from "../ui/FullNote";
 import NewNote from "../ui/NewNote";
 import Notes from "../ui/Notes";
+import styled from "styled-components";
+
+const StyledPage = styled.div`
+  margin-top: 2rem;
+  padding: 0 3rem 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  width: 100vw;
+  height: calc(100vh - 12rem);
+  gap: 2rem;
+
+  @media (max-width: 1365px) {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+`;
 
 function NotesPage() {
+  const [isNoteVisible, setIsNoteVisible] = useState(false);
   const [notes, setNotes] = useLocalStorageState([], "notes");
   const [openNote, setOpenNote] = useState("");
   const [activeNote, setActiveNote] = useState(null);
@@ -27,7 +44,7 @@ function NotesPage() {
 
   function updateNote(oldName, data) {
     setNotes((prevNotes) =>
-      prevNotes.map((note) => (note.name === oldName ? { ...note, ...data } : note))
+      prevNotes.map((note) => (note.name === oldName ? { ...note, ...data } : note)),
     );
     console.log(data);
   }
@@ -39,6 +56,7 @@ function NotesPage() {
   function handleCloseNote() {
     setOpenNote("");
     setActiveNote(null);
+    setIsNoteVisible(!isNoteVisible)
   }
 
   function handleOpenNoteForUpdate(openNote) {
@@ -66,7 +84,7 @@ function NotesPage() {
     setOpenNote("");
   }
   return (
-    <>
+    <StyledPage>
       <Notes
         data={notes}
         isOpenModal={isOpenModal}
@@ -85,8 +103,12 @@ function NotesPage() {
         setCaseNum={setCaseNum}
         setBookingID={setBookingID}
         setNote={setNote}
+        isNoteVisible={isNoteVisible}
+        setIsNoteVisible={setIsNoteVisible}
       />
       <FullNote
+        isNoteVisible={isNoteVisible}
+        setIsNoteVisible={setIsNoteVisible}
         isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
         data={openNote}
@@ -119,7 +141,7 @@ function NotesPage() {
         updateNote={updateNote}
         oldName={oldName}
       />
-    </>
+    </StyledPage>
   );
 }
 

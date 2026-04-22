@@ -68,6 +68,11 @@ const Tag = styled.span`
   ${(props) => click[props.click]}
   display: flex;
   justify-content: center;
+
+  @media (max-width: 1365px) {
+    font-size: 1rem;
+    width: auto;
+  }
 `;
 
 Tag.defaultProps = {
