@@ -9,6 +9,10 @@ const sizes = {
   `,
   large: css`
     font-size: 3rem;
+
+    @media (max-width: 1365px) { 
+    font-size: 1.6rem !important;
+  }
   `,
   x_large: css`
     font-size: 4rem;
@@ -82,6 +86,10 @@ const Heading = styled.h1`
   ${(props) => transformations[props.transform]}
   ${(props) => aligns[props.align]}
   ${(props) => fonts[props.font]}
+
+  @media (max-width: 1365px) { 
+    font-size: 1rem;
+  }
 `;
 
 export default Heading;

@@ -40,8 +40,8 @@ const StyledFullNote = styled.div`
     top: calc(50% + 4rem);
     position: absolute;
     z-index: 10;
-    padding: 1rem
-    ${(props) => visibility[props.visibility]}
+    padding: 1rem;
+    ${(props) => visibility[props.visibility]};
   }
 
   ${Buttons} {
@@ -76,9 +76,9 @@ const StyledFullNote = styled.div`
     margin: 0; /* Remove default margin to better control layout */
 
     @media (max-width: 1365px) {
-    font-size: 1.6rem;
-    line-height: 2.5;
-  }
+      font-size: 1.6rem;
+      line-height: 2.5;
+    }
 
     &::before {
       content: "";
@@ -87,6 +87,10 @@ const StyledFullNote = styled.div`
       width: 2px;
       background: var(--red-400);
       left: 4rem;
+
+      @media (max-width: 1365px) {
+        left: 2rem;
+      }
     }
 
     &::after {
@@ -97,6 +101,11 @@ const StyledFullNote = styled.div`
       background: var(--gray-50);
       left: 2rem;
       bottom: 0;
+
+      @media (max-width: 1365px) {
+        left: 0rem;
+        width: 100%;
+      }
     }
   }
 `;
@@ -114,8 +123,8 @@ const Details = styled.div`
 
   @media (max-width: 1365px) {
     width: 100%;
-    font-size: 1.2rem;
     padding: 1rem;
+    gap: 1rem;
   }
 
   ${Heading} {
@@ -130,11 +139,11 @@ const Details = styled.div`
     width: 100%;
 
     @media (max-width: 1365px) {
-    width: 100%;
-    height: 6rem;
-    font-size: 1rem;
-    padding: 1rem;
-  }
+      width: 100%;
+      height: 6rem;
+      font-size: 1rem;
+      padding: 1rem;
+    }
   }
 
   ${Heading}:nth-child(1),${Heading}:nth-child(3) {
@@ -149,8 +158,12 @@ const Note = styled.div`
 `;
 
 const Container = styled.div`
-  width: 100;
+  width: 100%;
   padding: 0 2rem;
+
+  @media (max-width: 1365px) {
+    padding: 0;
+  }
 `;
 
 const Image = styled.img`
@@ -173,7 +186,7 @@ function FullNote({
   setUpdate,
   onEdit,
   isNoteVisible,
-  setIsNoteVisible
+  setIsNoteVisible,
 }) {
   return (
     <>

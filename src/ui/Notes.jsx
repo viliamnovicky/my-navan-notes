@@ -63,6 +63,11 @@ const NoRecords = styled.p`
   span {
     font-family: "Pacifico", cursive;
   }
+
+  @media (max-width: 1365px) {
+    font-size: 1.2rem;
+    padding: 6rem;
+  }
 `;
 
 function Notes({
