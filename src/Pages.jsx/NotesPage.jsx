@@ -82,6 +82,7 @@ function NotesPage() {
 
     setIsOpenModal(false);
     setOpenNote("");
+    setIsNoteVisible(false);
   }
   return (
     <StyledPage>
@@ -140,6 +141,8 @@ function NotesPage() {
         setNotes={setNotes}
         updateNote={updateNote}
         oldName={oldName}
+        isNoteVisible={isNoteVisible}
+        setIsNoteVisible={setIsNoteVisible}
       />
     </StyledPage>
   );

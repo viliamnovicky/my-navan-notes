@@ -1,36 +1,54 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Heading from "./Heading";
 import NewCCA from "./NewCCA";
 import { Form, Label, Input, FormGroup, Text, Select } from "./Form";
 import Button, { Buttons } from "./Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
 import NewNoteImage from "../../public/new-note.png";
 import toast from "react-hot-toast";
 import { handleInput } from "../utils/helpers";
 
+const sizes = {
+  small: css`
+    height: 10rem;
+  `,
+  big: css`
+    height: 100%;
+  `,
+};
+
+const ActionButtons = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  @media (max-width: 1365px) {
+    position: absolute;
+    z-index: 5;
+    bottom: 0;
+  }
+`;
+
 const StyledNewNote = styled.div`
   background: var(--white);
   width: 100%;
   height: 100%;
   border-radius: 2rem;
-  //position: absolute;
+  position: relative;
   right: 2rem;
-  //transform: translateY(-50%);
-  //top: calc(50% + 4rem);
   overflow-y: auto;
   padding-left: 1.5rem;
 
   @media (max-width: 1365px) {
-    height: 0rem;
-    visibility: hidden;
-    opacity: 0;
-
-    
+    ${(props) => sizes[props.size]}
+    padding-bottom: 2rem;
+    //opacity: 0;
   }
 
-  ${Buttons} {
+  ${ActionButtons} {
     padding-bottom: 2rem;
   }
 `;
@@ -53,6 +71,12 @@ const Image = styled.img`
   bottom: 10rem;
   left: 50%;
   transform: translateX(-50%); */
+
+  @media (max-width: 1365px) {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+  }
 `;
 
 function NewNote({
@@ -76,6 +100,8 @@ function NewNote({
   setNote,
   updateNote,
   oldName,
+  isNoteVisible,
+  setIsNoteVisible,
 }) {
   const [isOpenCCAForm, setIsOpenCCAForm] = useState(false);
 
@@ -133,28 +159,29 @@ function NewNote({
     setActiveNote(name);
     setOpenNote(newNoteObject);
     reset();
+    setIsNoteVisible(true);
   }
 
   if (!isOpenForm && !isOpenCCAForm)
     return (
-      <StyledNewNote>
+      <StyledNewNote size="small">
         <OpenForm>
           <Image src={NewNoteImage}></Image>
-          <Buttons>
+          <ActionButtons>
             <Button size="large" onClick={() => setIsOpenForm(true)}>
               create new note
             </Button>
             <Button size="large" onClick={() => setIsOpenCCAForm(true)}>
               create CCA form
             </Button>
-          </Buttons>
+          </ActionButtons>
         </OpenForm>
       </StyledNewNote>
     );
 
   if (isOpenCCAForm) {
     return (
-      <StyledNewNote>
+      <StyledNewNote size="big">
         <Heading weight="w400" size="large">
           create new cca form
         </Heading>
@@ -192,7 +219,7 @@ function NewNote({
   }
 
   return (
-    <StyledNewNote>
+    <StyledNewNote size="big">
       <Heading weight="w400" size="large">
         {update ? "update note" : "create new note"}
       </Heading>
